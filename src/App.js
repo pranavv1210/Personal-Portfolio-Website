@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import projects from './projects.json';
 import { FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import './App.css';
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
+  
   useEffect(() => {
   // Initialize tsparticles for enhanced digital wave
   window.tsParticles.load('wave-bg', {
@@ -161,10 +163,10 @@ function App() {
             transition={{ duration: 1.2, delay: 0.2 }}
           >
             <img
-              src="/assets/pranav-photo.jpg"
-              alt="Pranav V"
-              className="w-full h-screen object-cover rounded-lg shadow-lg border border-bright-cyan/50"
-            />
+  src="/assets/pranav-photo.jpg"
+  alt="Pranav V"
+  className="w-full h-screen object-cover rounded-lg shadow-lg border border-bright-cyan/50"
+/>
           </motion.div>
         </div>
       </motion.section>
@@ -288,6 +290,14 @@ function App() {
   </motion.a>
 </motion.section>
     </div>
+    
+  );
+  return (
+    <ErrorBoundary>
+      <div className="min-h-screen bg-space-navy text-light-silver font-inter relative overflow-hidden">
+        {/* ... rest of your JSX ... */}
+      </div>
+    </ErrorBoundary>
   );
 }
 
