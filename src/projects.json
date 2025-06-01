@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "AI Resume Screening System",
+    "description": "An advanced AI-driven platform that revolutionizes recruitment by automating resume screening. Using Natural Language Processing, the system extracts skills, experience, and qualifications from resumes, matching them against job descriptions with a custom ranking algorithm. It features a chatbot powered by Dialogflow, allowing candidates to ask questions, receive feedback, and schedule interviews in real-time. Deployed on AWS with a scalable Flask backend, it reduces screening time by 70% and improves candidate selection accuracy. Developed during a 2024 hackathon, it won the Best AI Solution award for its innovative approach.",
+    "techStack": ["Python 3.9", "spaCy (NLP)", "Dialogflow API", "AWS (EC2, S3)", "Flask", "React 18", "PostgreSQL", "NLTK", "Pandas"]
+  },
+  {
+    "id": 2,
+    "title": "Age and Gender Detection",
+    "description": "A real-time computer vision system that predicts age and gender from facial images using deep learning. Built with OpenCV and a Convolutional Neural Network (CNN) pre-trained on the UTKFace dataset, it achieves 85% accuracy in diverse lighting conditions. The system processes live video streams or static images, making it ideal for applications like targeted advertising, user demographics analysis, and security systems. Optimized for edge devices with TensorFlow Lite, it includes a React-based web interface for user interaction. Completed as a 2025 capstone project, it was praised for its performance and usability.",
+    "techStack": ["Python 3.8", "OpenCV 4.5", "TensorFlow 2.8", "CNN (Custom Architecture)", "TensorFlow Lite", "React 18", "Node.js 16", "Express", "WebRTC"]
+  }
+]
