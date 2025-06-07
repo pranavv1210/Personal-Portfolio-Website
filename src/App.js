@@ -1,49 +1,258 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
-import { tsParticles } from 'tsparticles';
+import React, { useState, useRef, useEffect, forwardRef, useCallback, useImperativeHandle } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaHome, FaUser, FaBriefcase, FaPaperPlane } from 'react-icons/fa';
+import {
+  FaPython,
+  FaJsSquare,
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+  FaGitAlt,
+  FaAws,
+} from 'react-icons/fa';
+import { SiTensorflow } from 'react-icons/si';
 import projects from './projects.json';
 import ErrorBoundary from './ErrorBoundary';
+import VariableProximity from './VariableProximity';
+import Aurora from './Aurora';
+import FlowingMenu from './FlowingMenu';
+import TiltedCard from './TiltedCard';
+import { ScrollVelocity } from './ScrollVelocity';
+import Dock from './Dock';
+import pranavPhoto from './assets/pranav-photo.jpg';
 import './App.css';
+import './Dock.css';
+
+// RotatingText Component
+const RotatingText = forwardRef((props, ref) => {
+  const {
+    texts,
+    transition = { type: "spring", damping: 25, stiffness: 300 },
+    initial = { y: "100%", opacity: 0 },
+    animate = { y: 0, opacity: 1 },
+    exit = { y: "-120%", opacity: 0 },
+    animatePresenceMode = "wait",
+    animatePresenceInitial = false,
+    rotationInterval = 2000,
+    staggerDuration = 0,
+    staggerFrom = "first",
+    loop = true,
+    auto = true,
+    splitBy = "characters",
+    onNext,
+    mainClassName,
+    splitLevelClassName,
+    elementLevelClassName,
+    ...rest
+  } = props;
+
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  const splitIntoCharacters = (text) => {
+    if (typeof Intl !== "undefined" && Intl.Segmenter) {
+      const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+      return Array.from(segmenter.segment(text), (segment) => segment.segment);
+    }
+    return Array.from(text);
+  };
+
+  const elements = React.useMemo(() => {
+    const currentText = texts[currentTextIndex];
+    if (splitBy === "characters") {
+      const words = currentText.split(" ");
+      return words.map((word, i) => ({
+        characters: splitIntoCharacters(word),
+        needsSpace: i !== words.length - 1,
+      }));
+    }
+    if (splitBy === "words") {
+      return currentText.split(" ").map((word, i, arr) => ({
+        characters: [word],
+        needsSpace: i !== arr.length - 1,
+      }));
+    }
+    if (splitBy === "lines") {
+      return currentText.split("\n").map((line, i, arr) => ({
+        characters: [line],
+        needsSpace: i !== arr.length - 1,
+      }));
+    }
+    return currentText.split(splitBy).map((part, i, arr) => ({
+        characters: [part],
+        needsSpace: i !== arr.length - 1,
+    }));
+  }, [texts, currentTextIndex, splitBy]);
+
+  const getStaggerDelay = useCallback(
+    (index, totalChars) => {
+      const total = totalChars;
+      if (staggerFrom === "first") return index * staggerDuration;
+      if (staggerFrom === "last") return (total - 1 - index) * staggerDuration;
+      if (staggerFrom === "center") {
+        const center = Math.floor(total / 2);
+        return Math.abs(center - index) * staggerDuration;
+      }
+    if (staggerFrom === "random") {
+      const randomIndex = Math.floor(Math.random() * total);
+      return Math.abs(randomIndex - index) * staggerDuration;
+    }
+    return Math.abs(staggerFrom - index) * staggerDuration;
+  },
+  [staggerFrom, staggerDuration]
+);
+
+const handleIndexChange = useCallback(
+  (newIndex) => {
+    setCurrentTextIndex(newIndex);
+    if (onNext) onNext(newIndex);
+  },
+  [onNext]
+);
+
+const next = useCallback(() => {
+  const nextIndex =
+    currentTextIndex === texts.length - 1
+      ? loop
+        ? 0
+        : currentTextIndex
+      : currentTextIndex + 1;
+  if (nextIndex !== currentTextIndex) {
+    handleIndexChange(nextIndex);
+  }
+}, [currentTextIndex, texts.length, loop, handleIndexChange]);
+
+const previous = useCallback(() => {
+  const prevIndex =
+    currentTextIndex === 0
+      ? loop
+        ? texts.length - 1
+        : currentTextIndex
+      : currentTextIndex - 1;
+  if (prevIndex !== currentTextIndex) {
+    handleIndexChange(prevIndex);
+  }
+}, [currentTextIndex, texts.length, loop, handleIndexChange]);
+
+const jumpTo = useCallback(
+  (index) => {
+    const validIndex = Math.max(0, Math.min(index, texts.length - 1));
+    if (validIndex !== currentTextIndex) {
+      handleIndexChange(validIndex);
+    }
+  },
+  [texts.length, currentTextIndex, handleIndexChange]
+);
+
+const reset = useCallback(() => {
+  if (currentTextIndex !== 0) {
+    handleIndexChange(0);
+  }
+}, [currentTextIndex, handleIndexChange]);
+
+useImperativeHandle(
+  ref,
+  () => ({
+    next,
+    previous,
+    jumpTo,
+    reset,
+  }),
+  [next, previous, jumpTo, reset]
+);
+
+useEffect(() => {
+  if (!auto) return;
+  const intervalId = setInterval(next, rotationInterval);
+  return () => clearInterval(intervalId);
+}, [next, rotationInterval, auto]);
+
+return (
+  <motion.span
+    className={cn("text-rotate", mainClassName)}
+    {...rest}
+    layout
+    transition={transition}
+  >
+    <span className="text-rotate-sr-only">{texts[currentTextIndex]}</span>
+    <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
+      <motion.div
+        key={currentTextIndex}
+        className={cn(
+          splitBy === "lines" ? "text-rotate-lines" : "text-rotate"
+        )}
+        layout
+        aria-hidden="true"
+      >
+        {elements.map((wordObj, wordIndex, array) => {
+          const previousCharsCount = array
+            .slice(0, wordIndex)
+            .reduce((sum, word) => sum + word.characters.length, 0);
+          return (
+            <span
+              key={wordIndex}
+              className={cn("text-rotate-word", splitLevelClassName)}
+            >
+              {wordObj.characters.map((char, charIndex) => (
+                <motion.span
+                  key={charIndex}
+                  initial={initial}
+                  animate={animate}
+                  exit={exit}
+                  transition={{
+                    ...transition,
+                    delay: getStaggerDelay(
+                      previousCharsCount + charIndex,
+                      array.reduce(
+                        (sum, word) => sum + word.characters.length,
+                        0
+                      )
+                    ),
+                  }}
+                  className={cn("text-rotate-element", elementLevelClassName)}
+                >
+                  {char}
+                </motion.span>
+              ))}
+              {wordObj.needsSpace && (
+                <span className="text-rotate-space"> </span>
+              )}
+            </span>
+          );
+        })}
+      </motion.div>
+    </AnimatePresence>
+  </motion.span>
+);
+});
+
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 function App() {
-  useEffect(() => {
-    tsParticles.load('wave-bg', {
-      particles: {
-        number: { value: window.innerWidth < 768 ? 40 : 80 },
-        color: { value: ['#00E7FF', '#FFD700'] },
-        shape: { type: ['circle', 'triangle'] },
-        opacity: { value: 0.7, random: { enable: true, minimumValue: 0.3 } },
-        size: { value: 4, random: { enable: true, minimumValue: 2 } },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: 'top-right',
-          random: true,
-          outModes: { default: 'out' },
-        },
-        links: {
-          enable: true,
-          distance: 150,
-          color: '#00E7FF',
-          opacity: 0.4,
-        },
-      },
-      interactivity: {
-        events: {
-          onHover: { enable: true, mode: 'connect' },
-          onClick: { enable: true, mode: 'push' },
-        },
-        modes: {
-          connect: { distance: 200, radius: 400 },
-          push: { quantity: 4 },
-        },
-      },
-      background: { color: '#0A0E2A' },
-    });
-  }, []);
+  const [isMenuVisible, setIsMenuVisible] = useState(true);
+  const [selectedSection, setSelectedSection] = useState(null);
+  const aboutRef = useRef(null);
+  const projectsRef = useRef(null);
 
-  // Animation variants for sections
+  const menuItems = [
+    { link: "#about", text: "About Me" },
+    { link: "#projects", text: "My Works" },
+    { link: "#contact", text: "Reach Me" },
+  ];
+
+  const handleMenuItemClick = (link) => {
+    setIsMenuVisible(false);
+    setSelectedSection(link.replace("#", ""));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBackToMenu = () => {
+    setIsMenuVisible(true);
+    setSelectedSection(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const sectionVariants = {
     hidden: { opacity: 0, y: 100, scale: 0.95 },
     visible: {
@@ -54,241 +263,356 @@ function App() {
     },
   };
 
-  // Animation for nav links
-  const linkVariants = {
-    hover: { scale: 1.15, color: '#FFD700', transition: { duration: 0.3 } },
-  };
-
-  // Animation for text children
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
+  const menuVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.5 } },
+  };
+
+  const contentVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8, delay: 0.2 } },
+    exit: { opacity: 0, transition: { duration: 0.5 } },
+  };
+
+  const skills = [
+    { name: "Python", logo: <FaPython style={{ color: '#3776AB' }} /> },
+    { name: "JavaScript", logo: <FaJsSquare style={{ color: '#F7DF1E' }} /> },
+    { name: "React", logo: <FaReact style={{ color: '#61DAFB' }} /> },
+    { name: "TensorFlow", logo: <SiTensorflow style={{ color: '#FF6A00' }} /> },
+    { name: "Node.js", logo: <FaNodeJs style={{ color: '#339933' }} /> },
+    { name: "SQL", logo: <FaDatabase style={{ color: '#4479A1' }} /> },
+    { name: "Git", logo: <FaGitAlt style={{ color: '#F05032' }} /> },
+    { name: "AWS", logo: <FaAws style={{ color: '#FF9900' }} /> },
+  ];
+
+  const captions = [
+    "Emerging AIML Engineer",
+    "AI Enthusiast",
+    "Innovator in Tech",
+  ];
+
+  const dockItems = [
+    {
+      label: "Home",
+      icon: <FaHome size={24} color="#fff" />,
+      onClick: handleBackToMenu,
+    },
+    {
+      label: "About Me",
+      icon: <FaUser size={24} color="#fff" />,
+      onClick: () => handleMenuItemClick("#about"),
+    },
+    {
+      label: "My Works",
+      icon: <FaBriefcase size={24} color="#fff" />,
+      onClick: () => handleMenuItemClick("#projects"),
+    },
+    {
+      label: "Reach Me",
+      icon: <FaPaperPlane size={24} color="#fff" />,
+      onClick: () => handleMenuItemClick("#contact"),
+    },
+  ];
+
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-space-navy text-light-silver font-inter relative overflow-hidden">
-        {/* Digital Wave Background */}
-        <div id="wave-bg" className="absolute inset-0 z-0"></div>
+      <div className="relative min-h-screen bg-dark-gray text-light-gray font-inter overflow-hidden">
+        <Aurora
+          colorStops={['#1E1E1E', '#808080', '#D0D0D0']}
+          amplitude={1.2}
+          blend={0.6}
+        />
 
-        {/* Subtle Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-dark-steel opacity-30 z-0"></div>
+        <div className="absolute inset-0 z-1"></div>
 
-        {/* Navigation Bar */}
-        <motion.nav
-          className="bg-dark-steel bg-opacity-95 p-4 shadow-lg sticky top-0 z-20 border-b border-bright-cyan/50"
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          aria-label="Main navigation"
-        >
-          <ul className="flex space-x-10 justify-center">
-            {['about', 'projects', 'connect'].map((section) => (
-              <motion.li key={section}>
-                <motion.a
-                  href={`#${section}`}
-                  className="text-bright-cyan text-lg"
-                  variants={linkVariants}
-                  whileHover="hover"
-                  aria-label={`Navigate to ${section} section`}
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </motion.a>
-              </motion.li>
-            ))}
-          </ul>
-        </motion.nav>
-
-        {/* Hero Section */}
-        <motion.section
-          id="hero"
-          className="py-20 px-4 text-center relative z-10 max-w-4xl mx-auto my-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={sectionVariants}
-        >
-          <motion.h1
-            className="text-5xl md:text-6xl font-bold mb-4 text-bright-cyan"
-            variants={textVariants}
-          >
-            Pranav V
-          </motion.h1>
-          <motion.p
-            className="text-xl text-light-silver"
-            variants={textVariants}
-          >
-            AI/ML Innovator
-          </motion.p>
-        </motion.section>
-
-        {/* About Section */}
-        <motion.section
-          id="about"
-          className="py-12 px-4 relative z-10 max-w-6xl mx-auto bg-dark-steel bg-opacity-80 rounded-xl shadow-2xl my-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={sectionVariants}
-        >
-          <div className="flex flex-col md:flex-row items-center min-h-screen">
-            <div className="md:w-1/2 p-8">
-              <motion.h2
-                className="text-4xl md:text-5xl font-bold mb-6 text-bright-cyan"
-                variants={textVariants}
-              >
-                About Me
-              </motion.h2>
-              <motion.p
-                className="text-lg mb-4 leading-relaxed"
-                variants={textVariants}
-              >
-                I’m Pranav V, a 21-year-old AI/ML enthusiast born and raised in Bengaluru, India’s Silicon Valley. As a B.E. student in Artificial Intelligence and Machine Learning at CMR Institute of Technology (CGPA: 8.42, expected 2026), I’m fueled by the city’s dynamic tech ecosystem. From coding in bustling co-working spaces to brainstorming at hackathons, Bengaluru’s energy drives my passion for building intelligent systems that solve real-world challenges.
-              </motion.p>
-              <motion.p
-                className="text-lg mb-4 leading-relaxed"
-                variants={textVariants}
-              >
-                Outside the classroom, I’m all about balance and creativity. Cricket is my go-to sport—I love the thrill of a well-played cover drive or strategizing with teammates on the field. Table tennis keeps me sharp, with quick reflexes and friendly matches that spark laughter. Dancing is my escape, whether it’s mastering a new routine or freestyling to a favorite beat. Painting is where I pour my imagination, blending colors to create landscapes or abstract pieces that reflect my thoughts.
-              </motion.p>
-              <motion.p
-                className="text-lg leading-relaxed"
-                variants={textVariants}
-              >
-                As a proud Bengalurean, I’m inspired by the city’s blend of tradition and innovation. My goal is to contribute to AI’s future, crafting solutions that are as impactful as they are ethical. Whether I’m debugging code, smashing a forehand, or sketching a new artwork, I’m always learning, creating, and pushing boundaries. Let’s connect and shape what’s next!
-              </motion.p>
-            </div>
+        <AnimatePresence>
+          {isMenuVisible && (
             <motion.div
-              className="md:w-1/2 p-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.2 }}
+              className="menu-container"
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
-              <img
-                src="/assets/pranav-photo.jpg"
-                alt="Pranav V"
-                className="w-full h-screen object-cover rounded-lg shadow-lg border border-bright-cyan/50"
+              <FlowingMenu
+                items={menuItems.map(item => ({
+                  ...item,
+                  link: "#",
+                  onClick: (e) => {
+                    e.preventDefault();
+                    handleMenuItemClick(item.link);
+                  },
+                }))}
               />
             </motion.div>
-          </div>
-        </motion.section>
+          )}
+        </AnimatePresence>
 
-        {/* Projects Section */}
-        <motion.section
-          id="projects"
-          className="py-12 px-4 relative z-10 max-w-6xl mx-auto bg-dark-steel bg-opacity-80 rounded-xl shadow-2xl my-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={sectionVariants}
-        >
-          <motion.h2
-            className="text-3xl font-bold mb-6 text-center text-bright-cyan"
-            variants={textVariants}
-          >
-            My Works
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((project) => (
-              <motion.div
-                key={project.id}
-                className="project-card"
-                variants={textVariants}
-                whileHover={{ scale: 1.05 }}
-              >
-                <h3 className="text-xl font-bold text-bright-cyan mb-2">{project.title}</h3>
-                <p className="text-light-silver mb-4">{project.description}</p>
-                <div className="tech-stack">
-                  <p className="text-bright-cyan font-semibold mr-2">Tech Stack:</p>
-                  {project.techStack.map((tech, index) => (
-                    <span key={index}>{tech}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+        <AnimatePresence>
+          {!isMenuVisible && (
+            <motion.div
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative z-10 pb-20"
+            >
+              {selectedSection === "about" && (
+                <motion.section
+                  id="about"
+                  ref={aboutRef}
+                  className="py-12 px-4 relative z-10 max-w-6xl mx-auto bg-medium-gray bg-opacity-80 rounded-xl shadow-2xl my-12 font-roboto"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={sectionVariants}
+                >
+                  <div className="flex flex-col md:flex-row items-center relative">
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 text-center">
+                      <h3
+                        className="text-4xl font-bold text-light-gray"
+                        style={{ fontFamily: "'Montserrat', sans-serif" }}
+                      >
+                        PRANAV V
+                      </h3>
+                      <div className="flex justify-center mt-1 w-full">
+                        <RotatingText
+                          texts={captions}
+                          rotationInterval={2000}
+                          splitBy="words"
+                          staggerDuration={0.05}
+                          staggerFrom="center"
+                          className="text-xl text-light-gray font-medium inline-block"
+                        />
+                      </div>
+                    </div>
+                    <div className="md:w-1/2 p-8 pt-32 flex justify-center">
+                      <div className="max-w-md">
+                        <motion.div
+                          className="text-lg mb-4 leading-relaxed text-justify"
+                          variants={textVariants}
+                        >
+                          <VariableProximity
+                            label="I’m Pranav V, a 21-year-old AI/ML enthusiast born and raised in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology (CGPA: 8.42, expected 2026). Immersed in the city’s vibrant tech ecosystem, I thrive on coding, collaborating at hackathons, and building intelligent systems that tackle real-world challenges. Bengaluru’s innovation-driven spirit fuels my drive to explore the intersection of data, algorithms, and meaningful impact."
+                            fromFontVariationSettings="'wght' 400"
+                            toFontVariationSettings="'wght' 900"
+                            containerRef={aboutRef}
+                            radius={30}
+                            falloff="gaussian"
+                          />
+                        </motion.div>
+                        <motion.div
+                          className="text-lg mb-4 leading-relaxed text-justify"
+                          variants={textVariants}
+                        >
+                          <VariableProximity
+                            label="Beyond academics, I find balance through creativity and sport. Cricket and table tennis sharpen my focus and teamwork, while dancing and painting give me space to express and recharge. I’m passionate about blending technology with human-centered design, aiming to contribute ethically to the future of AI. Whether I’m sketching, debugging, or just learning something new, I’m always pushing boundaries and eager to connect with like-minded innovators."
+                            fromFontVariationSettings="'wght' 400"
+                            toFontVariationSettings="'wght' 900"
+                            containerRef={aboutRef}
+                            radius={30}
+                            falloff="gaussian"
+                          />
+                        </motion.div>
+                      </div>
+                    </div>
+                    <motion.div
+                      className="md:w-1/2 p-4 pt-20 flex justify-center"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 1.2, delay: 0.2 }}
+                    >
+                      <TiltedCard
+                        imageSrc={pranavPhoto}
+                        altText="Pranav V"
+                        containerHeight="500px"
+                        containerWidth="100%"
+                        imageHeight="500px"
+                        imageWidth="100%"
+                        scaleOnHover={1.1}
+                        rotateAmplitude={14}
+                        showTooltip={false}
+                      />
+                    </motion.div>
+                  </div>
+                  <motion.div
+                    className="mt-12"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={sectionVariants}
+                  >
+                    <h3 className="text-2xl font-bold mb-4 text-center text-light-gray">My Skills</h3>
+                    <ScrollVelocity
+                      scrollContainerRef={aboutRef}
+                      skills={skills}
+                      velocity={-50}
+                      className="skills-text"
+                      damping={50}
+                      stiffness={400}
+                      numCopies={6}
+                      velocityMapping={{ input: [0, 1000], output: [0, 5] }}
+                      parallaxClassName="parallax"
+                      scrollerClassName="scroller"
+                      parallaxStyle={{ marginTop: '20px' }}
+                      scrollerStyle={{}}
+                    />
+                    <motion.div className="flex justify-center mt-6">
+                      <motion.a
+                        href="/public/assets/pranav-resume.pdf"
+                        download="pranav-resume.pdf"
+                        className="relative inline-block px-6 py-2 text-light-gray font-roboto text-lg font-semibold rounded-full overflow-hidden bg-medium-gray bg-opacity-50 hover:bg-opacity-70 transition-all duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <span className="relative z-10">My Resume</span>
+                        <motion.span
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-light-gray to-transparent opacity-0"
+                          whileHover={{ opacity: 0.3, x: '100%' }}
+                          transition={{ repeat: Infinity, duration: 1.5 }}
+                        />
+                      </motion.a>
+                    </motion.div>
+                  </motion.div>
+                </motion.section>
+              )}
 
-        {/* Connect With Me Section */}
-        <motion.section
-          id="connect"
-          className="py-12 px-4 text-center relative z-10 max-w-4xl mx-auto bg-dark-steel bg-opacity-80 rounded-xl shadow-2xl my-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={sectionVariants}
-        >
-          <motion.h2
-            className="text-3xl font-bold mb-6 text-bright-cyan"
-            variants={textVariants}
-          >
-            Connect Me
-          </motion.h2>
-          <motion.div
-            className="max-w-md mx-auto flex flex-wrap justify-center gap-6"
-            variants={textVariants}
-          >
-            <motion.a
-              href="mailto:pranavv736@gmail.com"
-              className="text-bright-cyan hover:text-gold-accent"
-              aria-label="Email Pranav"
-              whileHover={{ scale: 1.2 }}
-            >
-              <FaEnvelope size={32} />
-            </motion.a>
-            <motion.a
-              href="tel:+917676858328"
-              className="text-bright-cyan hover:text-gold-accent"
-              aria-label="Call Pranav"
-              whileHover={{ scale: 1.2 }}
-            >
-              <FaPhone size={32} />
-            </motion.a>
-            <motion.a
-              href="https://www.instagram.com/pranavvenu_/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-bright-cyan hover:text-gold-accent"
-              aria-label="Visit Pranav's Instagram"
-              whileHover={{ scale: 1.2 }}
-            >
-              <FaInstagram size={32} />
-            </motion.a>
-            <motion.a
-              href="https://www.linkedin.com/in/pranav-venu-550729264/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-bright-cyan hover:text-gold-accent"
-              aria-label="Visit Pranav's LinkedIn"
-              whileHover={{ scale: 1.2 }}
-            >
-              <FaLinkedin size={32} />
-            </motion.a>
-            <motion.a
-              href="https://www.youtube.com/@pranavvenu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-bright-cyan hover:text-gold-accent"
-              aria-label="Visit Pranav's YouTube"
-              whileHover={{ scale: 1.2 }}
-            >
-              <FaYoutube size={32} />
-            </motion.a>
-          </motion.div>
-          <motion.a
-            href="/assets/PRANAV RESUME.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-block bg-bright-cyan text-dark-steel px-6 py-3 rounded-lg font-semibold glow-button"
-            whileHover={{ scale: 1.05, backgroundColor: '#FFD700' }}
-            whileTap={{ scale: 0.95 }}
-            variants={textVariants}
-            title="View Pranav's Resume"
-            aria-label="View Pranav's Resume in a new tab"
-          >
-            View Resume
-          </motion.a>
-        </motion.section>
+              {selectedSection === "projects" && (
+                <motion.section
+                  id="projects"
+                  ref={projectsRef}
+                  className="py-12 px-4 relative z-10 max-w-6xl mx-auto bg-medium-gray bg-opacity-80 rounded-xl shadow-2xl my-12 font-roboto"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={sectionVariants}
+                >
+                  <motion.h2
+                    className="text-4xl font-bold mb-6 text-center text-light-gray font-heading"
+                    variants={textVariants}
+                  >
+                    My Works
+                  </motion.h2>
+                  <div className="grid grid-cols-1 gap-8">
+                    {projects.map((project) => (
+                      <motion.div
+                        key={project.id}
+                        className="project-card p-6"
+                        variants={textVariants}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <h3 className="text-2xl font-bold text-light-gray mb-3">{project.title}</h3>
+                        <div className="text-lg text-light-gray mb-4 text-justify">
+                          <VariableProximity
+                            label={project.description}
+                            fromFontVariationSettings="'wght' 400"
+                            toFontVariationSettings="'wght' 900"
+                            containerRef={projectsRef}
+                            radius={30}
+                            falloff="gaussian"
+                          />
+                        </div>
+                        <div className="tech-stack">
+                          <p className="text-light-gray font-semibold mr-2 inline">Tech Stack:</p>
+                          {project.techStack.map((stackItem, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block bg-gray-200 rounded-lg px-2 py-1 text-sm font-medium text-gray-600 mr-2 mb-2"
+                            >
+                              {stackItem}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
+              )}
+
+              {selectedSection === "contact" && (
+                <motion.section
+                  id="contact"
+                  className="py-12 px-4 text-center relative z-10 max-w-4xl mx-auto bg-medium-gray bg-opacity-80 rounded-xl shadow-2xl my-12"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={sectionVariants}
+                >
+                  <motion.h2
+                    className="text-4xl font-bold mb-6 text-light-gray font-heading"
+                    variants={textVariants}
+                  >
+                    Reach Me
+                  </motion.h2>
+                  <motion.div
+                    className="max-w-md mx-auto flex flex-wrap justify-center gap-6"
+                    variants={textVariants}
+                  >
+                    <motion.a
+                      href="mailto:pranavv736@gmail.com"
+                      className="text-light-gray hover:text-white"
+                      aria-label="Email Pranav"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      <FaEnvelope size={32} />
+                    </motion.a>
+                    <motion.a
+                      href="tel:+917676858328"
+                      className="text-light-gray hover:text-white"
+                      aria-label="Call Pranav"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      <FaPhone size={32} />
+                    </motion.a>
+                    <motion.a
+                      href="https://www.instagram.com/pranavvenu_/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-light-gray hover:text-white"
+                      aria-label="Visit Pranav's Instagram"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      <FaInstagram size={32} />
+                    </motion.a>
+                    <motion.a
+                      href="https://www.linkedin.com/in/pranav-venu-550729264/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-light-gray hover:text-white"
+                      aria-label="Visit Pranav's LinkedIn"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      <FaLinkedin size={32} />
+                    </motion.a>
+                    <motion.a
+                      href="https://www.youtube.com/@pranavvenu"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-light-gray hover:text-white"
+                      aria-label="Visit Pranav's YouTube"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      <FaYoutube size={32} />
+                    </motion.a>
+                  </motion.div>
+                </motion.section>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Conditionally render the Dock only when not on the home page */}
+        {!isMenuVisible && (
+          <div className="fixed bottom-0 left-0 right-0 z-20">
+            <Dock items={dockItems} />
+          </div>
+        )}
       </div>
     </ErrorBoundary>
   );

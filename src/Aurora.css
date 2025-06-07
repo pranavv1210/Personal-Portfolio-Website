@@ -1,0 +1,17 @@
+.aurora-container {
+  position: fixed; /* Changed to fixed to ensure it stays in the background */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0; /* Lower z-index to ensure it’s behind content */
+  overflow: hidden;
+}
+
+.aurora-container canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

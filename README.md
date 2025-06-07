@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+Pranav V's Portfolio
+This is a personal portfolio website for Pranav V, an emerging AIML Engineer, showcasing projects, skills, and contact information. The project is built using React and bootstrapped with Create React App.
+Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+About Me: Learn about Pranav V, a 21-year-old AI/ML enthusiast from Bengaluru, pursuing a B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology.
+My Works: Explore projects built with technologies like Python, JavaScript, React, TensorFlow, Node.js, SQL, Git, and AWS.
+Reach Me: Connect via email, phone, Instagram, LinkedIn, and YouTube.
+Resume: Download Pranav's resume directly from the site.
+Interactive UI: Features animated effects using Framer Motion, a dynamic menu, and a dock for navigation.
 
-## Available Scripts
-
+Available Scripts
 In the project directory, you can run:
+npm start
+Runs the app in development mode.Open http://localhost:3000 to view it in your browser.The page will reload when you make changes, and lint errors will appear in the console.
+npm test
+Launches the test runner in interactive watch mode.See the section on running tests for more information.
+npm run build
+Builds the app for production to the build folder.It bundles React in production mode and optimizes the build for the best performance. The build is minified, and filenames include hashes.Your app is ready to be deployed!See the section on deployment for more information.
+npm run eject
+Note: This is a one-way operation. Once you eject, you can't go back!If you're not satisfied with the build tool and configuration choices, you can eject to gain full control over dependencies (Webpack, Babel, ESLint, etc.). All commands except eject will still work, but they will point to the copied scripts for customization.
+Project Setup
 
-### `npm start`
+Clone the repository:  git clone https://github.com/<your-username>/<your-repo-name>.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Install dependencies:  npm install
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Run the app:  npm start
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React: For building the user interface.
+Framer Motion: For animations and transitions.
+React Icons: For social media and skill icons.
+Tailwind CSS (assumed for styling based on React guidelines): For responsive design.
+Create React App: For project setup and configuration.
 
-### `npm run eject`
+Learn More
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Create React App Documentation
+React Documentation
+Code Splitting
+Analyzing the Bundle Size
+Making a Progressive Web App
+Advanced Configuration
+Deployment
+Troubleshooting npm run build Fails to Minify
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Copyright
+© 2025 Pranav V. All rights reserved.

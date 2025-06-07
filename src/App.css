@@ -1,42 +1,118 @@
-/* Reset default styles */
-* {
+:root {
+  --dark-gray: #1E1E1E;
+  --medium-gray: #808080;
+  --light-gray: #D0D0D0;
+}
+
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Glowing button effect */
-.glow-button:hover {
-  box-shadow: 0 0 20px rgba(0, 231, 255, 0.5);
+.font-inter {
+  font-family: 'Inter', sans-serif;
+  font-variation-settings: 'wght' 400;
 }
 
-/* Project Card */
+.font-heading {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 800;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.variable-proximity {
+  font-family: 'Roboto', sans-serif !important;
+  font-variation-settings: 'wght' 400;
+}
+
+.text-rotate-element,
+.variable-proximity span {
+  will-change: transform, opacity, font-variation-settings;
+}
+
 .project-card {
-  background: rgba(31, 42, 68, 0.9);
-  color: #E6F0FA;
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 2px solid #00E7FF;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(50, 50, 50, 0.8); /* Medium gray */
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #808080; /* Medium gray border */
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 231, 255, 0.3);
-}
-
-/* Tech Stack List */
 .tech-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 8px;
 }
 
 .tech-stack span {
-  background: #1F2A44;
-  color: #00E7FF;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
+  background: #808080; /* Medium gray */
+  color: #1E1E1E; /* Dark gray */
+  padding: 4px 8px;
+  border-radius: 4px;
   font-size: 0.875rem;
+}
+
+.glow-button {
+  box-shadow: 0 0 10px rgba(208, 208, 208, 0.5); /* Light gray glow */
+}
+
+.skills-text {
+  color: #D0D0D0; /* Light gray */
+}
+
+.text-rotate {
+  display: flex;
+  flex-wrap: wrap;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.text-rotate-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-rotate-word {
+  display: inline-flex;
+}
+
+.text-rotate-lines {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.text-rotate-element {
+  display: inline-block;
+}
+
+.text-rotate-space {
+  white-space: pre;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-wrap {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  justify-content: center;
 }
