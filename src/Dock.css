@@ -15,8 +15,8 @@
   width: fit-content;
   gap: 1rem;
   border-radius: 1rem;
-  background-color: #4A4A4A; /* Changed to lighter gray */
-  border: 1px solid #666666; /* Changed to lighter gray border */
+  background-color: #4A4A4A;
+  border: 1px solid #666666;
   padding: 0 0.5rem 0.5rem;
 }
 
@@ -26,8 +26,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background-color: #4A4A4A; /* Changed to lighter gray */
-  border: 1px solid #666666; /* Changed to lighter gray border */
+  background-color: #4A4A4A;
+  border: 1px solid #666666;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
@@ -47,10 +47,34 @@
   width: fit-content;
   white-space: pre;
   border-radius: 0.375rem;
-  border: 1px solid #666666; /* Changed to lighter gray border */
-  background-color: #4A4A4A; /* Changed to lighter gray */
+  border: 1px solid #666666;
+  background-color: #4A4A4A;
   padding: 0.125rem 0.5rem;
   font-size: 0.75rem;
   color: #fff;
   transform: translateX(-50%);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .dock-panel {
+    bottom: 0.3rem;
+    gap: 0.5rem;
+    padding: 0 0.3rem 0.3rem;
+  }
+
+  .dock-item {
+    padding: 0.3rem;
+  }
+
+  .dock-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dock-label {
+    top: -1.2rem;
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+  }
 }

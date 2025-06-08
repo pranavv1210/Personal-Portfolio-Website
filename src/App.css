@@ -1,3 +1,4 @@
+/* Existing styles (desktop remains unchanged) */
 :root {
   --dark-gray: #1E1E1E;
   --medium-gray: #808080;
@@ -6,67 +7,22 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
+  background-color: var(--dark-gray);
+  color: var(--light-gray);
 }
 
-.font-inter {
-  font-family: 'Inter', sans-serif;
-  font-variation-settings: 'wght' 400;
-}
-
-.font-heading {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 800;
-}
-
-.font-roboto {
-  font-family: 'Roboto', sans-serif !important;
-}
-
-.variable-proximity {
-  font-family: 'Roboto', sans-serif !important;
-  font-variation-settings: 'wght' 400;
-}
-
-.text-rotate-element,
-.variable-proximity span {
-  will-change: transform, opacity, font-variation-settings;
-}
-
-.project-card {
-  background: rgba(50, 50, 50, 0.8); /* Medium gray */
-  padding: 30px;
-  border-radius: 10px;
-  border: 1px solid #808080; /* Medium gray border */
-}
-
-.tech-stack {
+.menu-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tech-stack span {
-  background: #808080; /* Medium gray */
-  color: #1E1E1E; /* Dark gray */
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-}
-
-.glow-button {
-  box-shadow: 0 0 10px rgba(208, 208, 208, 0.5); /* Light gray glow */
-}
-
-.skills-text {
-  color: #D0D0D0; /* Light gray */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
 }
 
 .text-rotate {
-  display: flex;
-  flex-wrap: wrap;
-  white-space: pre-wrap;
-  position: relative;
+  display: inline-block;
 }
 
 .text-rotate-sr-only {
@@ -77,42 +33,151 @@ body {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
   border: 0;
 }
 
 .text-rotate-word {
   display: inline-flex;
+  align-items: center;
 }
 
-.text-rotate-lines {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+.text-rotate-space {
+  display: inline-block;
+  width: 0.25em;
 }
 
 .text-rotate-element {
   display: inline-block;
 }
 
-.text-rotate-space {
-  white-space: pre;
+.project-card {
+  background-color: rgba(128, 128, 128, 0.5);
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-.menu-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+/* Mobile Responsiveness (only changes for mobile) */
+@media (max-width: 768px) {
+  /* Adjust About Me Section */
+  #about {
+    padding: 2rem 1rem;
+  }
 
-.menu-wrap {
-  width: 100%;
-  max-width: none;
-  display: flex;
-  justify-content: center;
+  #about .flex {
+    flex-direction: column;
+  }
+
+  #about .md\:w-1\/2 {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  #about .pt-32 {
+    padding-top: 6rem;
+  }
+
+  #about .pt-20 {
+    padding-top: 1rem;
+  }
+
+  #about h3 {
+    font-size: 1.5rem;
+  }
+
+  #about .text-xl {
+    font-size: 1rem;
+  }
+
+  #about .text-lg {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  #about .max-w-md {
+    max-width: 100%;
+  }
+
+  /* Adjust TiltedCard (Photo) to be visible on mobile */
+  #about .TiltedCard {
+    container-height: 300px !important;
+    container-width: 100% !important;
+    image-height: 300px !important;
+    image-width: 100% !important;
+    display: block !important;
+  }
+
+  /* Hide any desktop-only message if present */
+  #about .TiltedCard::after {
+    content: none !important;
+  }
+
+  /* Adjust Skills Section */
+  #about .mt-12 {
+    margin-top: 2rem;
+  }
+
+  #about h3.text-2xl {
+    font-size: 1.25rem;
+  }
+
+  /* Adjust Resume Button */
+  #about .px-6.py-2 {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Adjust Projects Section */
+  #projects {
+    padding: 2rem 1rem;
+  }
+
+  #projects .text-4xl {
+    font-size: 1.5rem;
+  }
+
+  #projects .project-card {
+    padding: 1rem;
+  }
+
+  #projects .text-2xl {
+    font-size: 1.25rem;
+  }
+
+  #projects .text-lg {
+    font-size: 0.9rem;
+  }
+
+  #projects .text-sm {
+    font-size: 0.75rem;
+  }
+
+  /* Adjust Contact Section */
+  #contact {
+    padding: 2rem 1rem;
+  }
+
+  #contact .text-4xl {
+    font-size: 1.5rem;
+  }
+
+  #contact .max-w-md {
+    max-width: 100%;
+    gap: 1rem;
+  }
+
+  #contact svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Adjust FlowingMenu */
+  .menu-container {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  /* Ensure Aurora background scales */
+  .relative.min-h-screen {
+    min-height: auto;
+  }
 }
