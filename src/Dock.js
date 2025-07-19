@@ -27,6 +27,7 @@ function DockItem({
   distance,
   magnification,
   baseItemSize,
+  isActive, // Added isActive prop
 }) {
   const ref = useRef(null);
   const isHovered = useMotionValue(0);
@@ -52,6 +53,9 @@ function DockItem({
       style={{
         width: size,
         height: size,
+        // Add a subtle border or background change if isActive
+        backgroundColor: isActive ? 'rgba(74, 144, 226, 0.4)' : '', // Highlight active
+        border: isActive ? '1px solid rgba(74, 144, 226, 0.8)' : '',
       }}
       onHoverStart={() => isHovered.set(1)}
       onHoverEnd={() => isHovered.set(0)}
@@ -153,6 +157,7 @@ export default function Dock({
             distance={distance}
             magnification={magnification}
             baseItemSize={baseItemSize}
+            isActive={item.isActive}
           >
             <DockIcon>{item.icon}</DockIcon>
             <DockLabel>{item.label}</DockLabel>

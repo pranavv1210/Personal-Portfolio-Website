@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect, forwardRef, useCallback, useImperativeHandle } from 'react';
+import React, { useState, useRef, useEffect, forwardRef, useCallback, useImperativeHandle, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaHome, FaUser, FaBriefcase, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaHome, FaUser, FaBriefcase, FaPaperPlane, FaGithub, FaGraduationCap } from 'react-icons/fa';
 import {
   FaPython,
   FaJsSquare,
@@ -15,15 +15,16 @@ import projects from './projects.json';
 import ErrorBoundary from './ErrorBoundary';
 import VariableProximity from './VariableProximity';
 import Aurora from './Aurora';
-import FlowingMenu from './FlowingMenu';
 import TiltedCard from './TiltedCard';
-import { ScrollVelocity } from './ScrollVelocity';
+import { ScrollVelocity } from './ScrollVelocity'; // Corrected import syntax
 import Dock from './Dock';
 import pranavPhoto from './assets/pranav-photo.jpg';
+import githubCtaBg from './assets/image_616736.jpg'; // Ensure this image is in src/assets/
+
 import './App.css';
 import './Dock.css';
 
-// RotatingText Component
+// RotatingText Component (remains unchanged)
 const RotatingText = forwardRef((props, ref) => {
   const {
     texts,
@@ -230,55 +231,100 @@ function cn(...classes) {
 }
 
 function App() {
-  const [isMenuVisible, setIsMenuVisible] = useState(true);
-  const [selectedSection, setSelectedSection] = useState(null);
+  const homeRef = useRef(null);
   const aboutRef = useRef(null);
+  const educationRef = useRef(null);
   const projectsRef = useRef(null);
+  const githubProjectsRef = useRef(null);
+  const contactRef = useRef(null);
 
-  const menuItems = [
-    { link: "#about", text: "About Me" },
-    { link: "#projects", text: "My Works" },
-    { link: "#contact", text: "Reach Me" },
-  ];
+  const [activeSection, setActiveSection] = useState('home');
+  const [showDock, setShowDock] = useState(true); // State to control dock visibility
 
-  const handleMenuItemClick = (link) => {
-    setIsMenuVisible(false);
-    setSelectedSection(link.replace("#", ""));
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToSection = useCallback((sectionRef, sectionName) => {
+    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(sectionName);
+  }, []);
 
-  const handleBackToMenu = () => {
-    setIsMenuVisible(true);
-    setSelectedSection(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const menuItems = useMemo(() => [
+    { link: "#home", text: "Home", ref: homeRef },
+    { link: "#about", text: "About Me", ref: aboutRef },
+    { link: "#education", text: "Education", ref: educationRef },
+    { link: "#projects", text: "My Works", ref: projectsRef },
+    { link: "#github-projects", text: "More Projects", ref: githubProjectsRef },
+    { link: "#contact", text: "Reach Me", ref: contactRef },
+  ], [homeRef, aboutRef, educationRef, projectsRef, githubProjectsRef, contactRef]);
+
+  // Scroll handler to hide/show dock
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    // Hide dock if scrolled near the bottom (e.g., within 100px of the very bottom)
+    // Adjust 100 to change how close to the bottom it disappears
+    const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 100);
+
+    setShowDock(!isAtBottom);
+  }, []);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    menuItems.forEach(item => {
+      if (item.ref.current) {
+        observer.observe(item.ref.current);
+      }
+    });
+
+    // Add scroll event listener for dock visibility
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      menuItems.forEach(item => {
+        if (item.ref.current) {
+          observer.unobserve(item.ref.current);
+        }
+      });
+      // Clean up scroll event listener
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [menuItems, handleScroll]);
+
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 100, scale: 0.95 },
+    hidden: { opacity: 0, y: 50, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 1, ease: 'easeOut', staggerChildren: 0.2 },
+      transition: { duration: 0.8, ease: 'easeOut', staggerChildren: 0.1 },
     },
   };
 
   const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const menuVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } },
-    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.5 } },
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.8, delay: 0.2 } },
-    exit: { opacity: 0, transition: { duration: 0.5 } },
-  };
+  const captions = [
+    "Emerging AIML Engineer",
+    "AI Enthusiast",
+    "Innovator in Tech",
+  ];
 
   const skills = [
     { name: "Python", logo: <FaPython style={{ color: '#3776AB' }} /> },
@@ -291,32 +337,53 @@ function App() {
     { name: "AWS", logo: <FaAws style={{ color: '#FF9900' }} /> },
   ];
 
-  const captions = [
-    "Emerging AIML Engineer",
-    "AI Enthusiast",
-    "Innovator in Tech",
-  ];
+  // Education data - CGPA details removed
+  const educationData = useMemo(() => [
+    {
+      id: 1,
+      year: "2022-Present",
+      degree: "B.E. in Artificial Intelligence and Machine Learning",
+      institution: "CMR Institute of Technology",
+    },
+    {
+      id: 2,
+      year: "2020-2022",
+      degree: "Pre-University Board (PCMB)",
+      institution: "St. Joseph's Pre-University College"
+    },
+    {
+      id: 3,
+      year: "2007-2020",
+      degree: "International Council of Secondary Education (ICSE)",
+      institution: "Cambridge School"
+    }
+  ], []);
 
+  // Dock items - Education and More Projects options removed
   const dockItems = [
     {
       label: "Home",
       icon: <FaHome size={24} color="#fff" />,
-      onClick: handleBackToMenu,
+      onClick: () => scrollToSection(homeRef, 'home'),
+      isActive: activeSection === 'home'
     },
     {
       label: "About Me",
       icon: <FaUser size={24} color="#fff" />,
-      onClick: () => handleMenuItemClick("#about"),
+      onClick: () => scrollToSection(aboutRef, 'about'),
+      isActive: activeSection === 'about'
     },
     {
       label: "My Works",
       icon: <FaBriefcase size={24} color="#fff" />,
-      onClick: () => handleMenuItemClick("#projects"),
+      onClick: () => scrollToSection(projectsRef, 'projects'),
+      isActive: activeSection === 'projects'
     },
     {
       label: "Reach Me",
       icon: <FaPaperPlane size={24} color="#fff" />,
-      onClick: () => handleMenuItemClick("#contact"),
+      onClick: () => scrollToSection(contactRef, 'contact'),
+      isActive: activeSection === 'contact'
     },
   ];
 
@@ -324,295 +391,335 @@ function App() {
     <ErrorBoundary>
       <div className="relative min-h-screen bg-dark-gray text-light-gray font-inter overflow-hidden">
         <Aurora
-          colorStops={['#1E1E1E', '#808080', '#D0D0D0']}
-          amplitude={1.2}
-          blend={0.6}
+          colorStops={['#1a1a2e', '#16213e', '#0f3460']}
+          amplitude={1.5}
+          blend={0.7}
         />
 
-        <div className="absolute inset-0 z-1"></div>
+        <div className="absolute inset-0 z-0"></div>
 
-        <AnimatePresence>
-          {isMenuVisible && (
-            <motion.div
-              className="menu-container"
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+        <div className="relative z-10 pb-20">
+
+          {/* Hero Section */}
+          <section
+            id="home"
+            ref={homeRef}
+            className="hero-section flex flex-col justify-center items-center text-center h-screen px-4"
+          >
+            <motion.h1
+              className="text-6xl md:text-8xl font-extrabold text-light-gray mb-4 font-heading"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
             >
-              <FlowingMenu
-                items={menuItems.map(item => ({
-                  ...item,
-                  link: "#",
-                  onClick: (e) => {
-                    e.preventDefault();
-                    handleMenuItemClick(item.link);
-                  },
-                }))}
+              PRANAV V
+            </motion.h1>
+            <motion.div
+              className="mt-2"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
+            >
+              <RotatingText
+                texts={captions}
+                rotationInterval={2500}
+                splitBy="words"
+                staggerDuration={0.07}
+                staggerFrom="center"
+                mainClassName="text-3xl md:text-4xl text-medium-gray font-semibold inline-block"
+                elementLevelClassName="tracking-wide"
               />
             </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {!isMenuVisible && (
-            <motion.div
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="relative z-10 pb-20"
+            <motion.button
+              className="mt-12 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.6 }}
+              onClick={() => scrollToSection(aboutRef, 'about')}
             >
-              {selectedSection === "about" && (
-                <motion.section
-                  id="about"
-                  ref={aboutRef}
-                  className="py-12 px-4 relative z-10 max-w-6xl mx-auto bg-medium-gray bg-opacity-80 rounded-xl shadow-2xl my-12 font-roboto"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={sectionVariants}
-                >
-                  <div className="flex flex-col md:flex-row items-center relative">
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 text-center">
-                      <h3
-                        className="text-4xl font-bold text-light-gray"
-                        style={{ fontFamily: "'Montserrat', sans-serif" }}
-                      >
-                        PRANAV V
-                      </h3>
-                      <div className="flex justify-center mt-1 w-full">
-                        <RotatingText
-                          texts={captions}
-                          rotationInterval={2000}
-                          splitBy="words"
-                          staggerDuration={0.05}
-                          staggerFrom="center"
-                          className="text-xl text-light-gray font-medium inline-block"
-                        />
-                      </div>
-                    </div>
-                    <div className="md:w-1/2 p-8 pt-32 flex justify-center">
-                      <div className="max-w-md">
-                        <motion.div
-                          className="text-lg mb-4 leading-relaxed text-justify"
-                          variants={textVariants}
-                        >
-                          <VariableProximity
-                            label="I’m Pranav V, a 21-year-old AI/ML enthusiast born and raised in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology (CGPA: 8.42, expected 2026). Immersed in the city’s vibrant tech ecosystem, I thrive on coding, collaborating at hackathons, and building intelligent systems that tackle real-world challenges. Bengaluru’s innovation-driven spirit fuels my drive to explore the intersection of data, algorithms, and meaningful impact."
-                            fromFontVariationSettings="'wght' 400"
-                            toFontVariationSettings="'wght' 900"
-                            containerRef={aboutRef}
-                            radius={30}
-                            falloff="gaussian"
-                          />
-                        </motion.div>
-                        <motion.div
-                          className="text-lg mb-4 leading-relaxed text-justify"
-                          variants={textVariants}
-                        >
-                          <VariableProximity
-                            label="Beyond academics, I find balance through creativity and sport. Cricket and table tennis sharpen my focus and teamwork, while dancing and painting give me space to express and recharge. I’m passionate about blending technology with human-centered design, aiming to contribute ethically to the future of AI. Whether I’m sketching, debugging, or just learning something new, I’m always pushing boundaries and eager to connect with like-minded innovators."
-                            fromFontVariationSettings="'wght' 400"
-                            toFontVariationSettings="'wght' 900"
-                            containerRef={aboutRef}
-                            radius={30}
-                            falloff="gaussian"
-                          />
-                        </motion.div>
-                      </div>
-                    </div>
-                    <motion.div
-                      className="md:w-1/2 p-4 pt-20 flex justify-center"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 1.2, delay: 0.2 }}
-                    >
-                      <TiltedCard
-                        imageSrc={pranavPhoto}
-                        altText="Pranav V"
-                        containerHeight="500px"
-                        containerWidth="100%"
-                        imageHeight="500px"
-                        imageWidth="100%"
-                        scaleOnHover={1.1}
-                        rotateAmplitude={14}
-                        showTooltip={false}
-                      />
-                    </motion.div>
-                  </div>
-                  <motion.div
-                    className="mt-12"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={sectionVariants}
-                  >
-                    <h3 className="text-2xl font-bold mb-4 text-center text-light-gray">My Skills</h3>
-                    <ScrollVelocity
-                      scrollContainerRef={aboutRef}
-                      skills={skills}
-                      velocity={-50}
-                      className="skills-text"
-                      damping={50}
-                      stiffness={400}
-                      numCopies={6}
-                      velocityMapping={{ input: [0, 1000], output: [0, 5] }}
-                      parallaxClassName="parallax"
-                      scrollerClassName="scroller"
-                      parallaxStyle={{ marginTop: '20px' }}
-                      scrollerStyle={{}}
-                    />
-                    <motion.div className="flex justify-center mt-6">
-                      <motion.a
-                        href="/public/assets/pranav-resume.pdf"
-                        download="pranav-resume.pdf"
-                        className="relative inline-block px-6 py-2 text-light-gray font-roboto text-lg font-semibold rounded-full overflow-hidden bg-medium-gray bg-opacity-50 hover:bg-opacity-70 transition-all duration-300"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <span className="relative z-10">My Resume</span>
-                        <motion.span
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-light-gray to-transparent opacity-0"
-                          whileHover={{ opacity: 0.3, x: '100%' }}
-                          transition={{ repeat: Infinity, duration: 1.5 }}
-                        />
-                      </motion.a>
-                    </motion.div>
-                  </motion.div>
-                </motion.section>
-              )}
+              Learn More About Me
+            </motion.button>
+          </section>
 
-              {selectedSection === "projects" && (
-                <motion.section
-                  id="projects"
-                  ref={projectsRef}
-                  className="py-12 px-4 relative z-10 max-w-6xl mx-auto bg-medium-gray bg-opacity-80 rounded-xl shadow-2xl my-12 font-roboto"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={sectionVariants}
+          {/* About Me Section */}
+          <motion.section
+            id="about"
+            ref={aboutRef}
+            className="section-card py-16 px-6 max-w-7xl mx-auto my-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-10 text-center text-light-gray font-heading"
+              variants={textVariants}
+            >
+              About Me
+            </motion.h2>
+            <div className="flex flex-col md:flex-row items-center gap-10">
+              <motion.div
+                className="md:w-1/2 flex justify-center order-2 md:order-1"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                viewport={{ once: true, amount: 0.1 }}
+              >
+                <TiltedCard
+                  imageSrc={pranavPhoto}
+                  altText="Pranav V"
+                  containerHeight="500px"
+                  containerWidth="100%"
+                  imageHeight="500px"
+                  imageWidth="100%"
+                  scaleOnHover={1.05}
+                  rotateAmplitude={10}
+                  showTooltip={false}
+                />
+              </motion.div>
+              <div className="md:w-1/2 space-y-6 order-1 md:order-2">
+                <motion.p
+                  className="text-lg leading-relaxed text-justify text-light-gray"
+                  variants={textVariants}
                 >
-                  <motion.h2
-                    className="text-4xl font-bold mb-6 text-center text-light-gray font-heading"
-                    variants={textVariants}
-                  >
-                    My Works
-                  </motion.h2>
-                  <div className="grid grid-cols-1 gap-8">
-                    {projects.map((project) => (
-                      <motion.div
-                        key={project.id}
-                        className="project-card p-6"
-                        variants={textVariants}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <h3 className="text-2xl font-bold text-light-gray mb-3">{project.title}</h3>
-                        <div className="text-lg text-light-gray mb-4 text-justify">
-                          <VariableProximity
-                            label={project.description}
-                            fromFontVariationSettings="'wght' 400"
-                            toFontVariationSettings="'wght' 900"
-                            containerRef={projectsRef}
-                            radius={30}
-                            falloff="gaussian"
-                          />
-                        </div>
-                        <div className="tech-stack">
-                          <p className="text-light-gray font-semibold mr-2 inline">Tech Stack:</p>
-                          {project.techStack.map((stackItem, idx) => (
-                            <span
-                              key={idx}
-                              className="inline-block bg-gray-200 rounded-lg px-2 py-1 text-sm font-medium text-gray-600 mr-2 mb-2"
-                            >
-                              {stackItem}
-                            </span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.section>
-              )}
+                  <VariableProximity
+                    label="I’m Pranav V, a 21-year-old AI/ML enthusiast born and raised in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology (CGPA: 8.42, expected 2026). Immersed in the city’s vibrant tech ecosystem, I thrive on coding, collaborating at hackathons, and building intelligent systems that tackle real-world challenges. Bengaluru’s innovation-driven spirit fuels my drive to explore the intersection of data, algorithms, and meaningful impact."
+                    fromFontVariationSettings="'wght' 400"
+                    toFontVariationSettings="'wght' 900"
+                    containerRef={aboutRef}
+                    radius={40}
+                    falloff="gaussian"
+                  />
+                </motion.p>
+                <motion.p
+                  className="text-lg leading-relaxed text-justify text-light-gray"
+                  variants={textVariants}
+                >
+                  <VariableProximity
+                    label="Beyond academics, I find balance through creativity and sport. Cricket and table tennis sharpen my focus and teamwork, while dancing and painting give me space to express and recharge. I’m passionate about blending technology with human-centered design, aiming to contribute ethically to the future of AI. Whether I’m sketching, debugging, or just learning something new, I’m always pushing boundaries and eager to connect with like-minded innovators."
+                    fromFontVariationSettings="'wght' 400"
+                    toFontVariationSettings="'wght' 900"
+                    containerRef={aboutRef}
+                    radius={40}
+                    falloff="gaussian"
+                  />
+                </motion.p>
+              </div>
+            </div>
+            <motion.div
+              className="mt-16"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={sectionVariants}
+            >
+              <h3 className="text-3xl font-bold mb-8 text-center text-light-gray">My Skills</h3>
+              <ScrollVelocity
+                scrollContainerRef={aboutRef}
+                skills={skills}
+                velocity={-50}
+                className="skills-text"
+                damping={50}
+                stiffness={400}
+                numCopies={6}
+                velocityMapping={{ input: [0, 1000], output: [0, 5] }}
+                parallaxClassName="parallax"
+                scrollerClassName="scroller"
+                parallaxStyle={{ marginTop: '20px' }}
+                scrollerStyle={{}}
+              />
+              <motion.div className="flex justify-center mt-10">
+                <motion.a
+                  href="/Pranav_V_Resume.pdf"
+                  download="Pranav_V_Resume.pdf"
+                  className="relative inline-block px-8 py-3 text-white font-roboto text-lg font-semibold rounded-full overflow-hidden bg-gradient-to-r from-teal-500 to-blue-600 shadow-md hover:shadow-lg transition-all duration-300 group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="relative z-10">Download Resume</span>
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '100%' }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
+                  />
+                </motion.a>
+              </motion.div>
+            </motion.div>
+          </motion.section>
 
-              {selectedSection === "contact" && (
-                <motion.section
-                  id="contact"
-                  className="py-12 px-4 text-center relative z-10 max-w-4xl mx-auto bg-medium-gray bg-opacity-80 rounded-xl shadow-2xl my-12"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={sectionVariants}
+          {/* New Education Section */}
+          <motion.section
+            id="education"
+            ref={educationRef}
+            className="section-card py-16 px-6 max-w-7xl mx-auto my-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-10 text-center text-light-gray font-heading education-heading"
+              variants={textVariants}
+            >
+              Education
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {educationData.map((edu, index) => (
+                <motion.div
+                  key={edu.id}
+                  className="education-card p-6 bg-gray-700 bg-opacity-70 rounded-xl shadow-lg border border-gray-600 transform hover:scale-[1.02] transition-transform duration-300 ease-in-out"
+                  variants={textVariants}
+                  custom={index}
                 >
-                  <motion.h2
-                    className="text-4xl font-bold mb-6 text-light-gray font-heading"
-                    variants={textVariants}
-                  >
-                    Reach Me
-                  </motion.h2>
-                  <motion.div
-                    className="max-w-md mx-auto flex flex-wrap justify-center gap-6"
-                    variants={textVariants}
-                  >
-                    <motion.a
-                      href="mailto:pranavv736@gmail.com"
-                      className="text-light-gray hover:text-white"
-                      aria-label="Email Pranav"
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      <FaEnvelope size={32} />
-                    </motion.a>
-                    <motion.a
-                      href="tel:+917676858328"
-                      className="text-light-gray hover:text-white"
-                      aria-label="Call Pranav"
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      <FaPhone size={32} />
-                    </motion.a>
-                    <motion.a
-                      href="https://www.instagram.com/pranavvenu_/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-light-gray hover:text-white"
-                      aria-label="Visit Pranav's Instagram"
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      <FaInstagram size={32} />
-                    </motion.a>
-                    <motion.a
-                      href="https://www.linkedin.com/in/pranav-venu-550729264/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-light-gray hover:text-white"
-                      aria-label="Visit Pranav's LinkedIn"
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      <FaLinkedin size={32} />
-                    </motion.a>
-                    <motion.a
-                      href="https://www.youtube.com/@pranavvenu"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-light-gray hover:text-white"
-                      aria-label="Visit Pranav's YouTube"
-                      whileHover={{ scale: 1.2 }}
-                    >
-                      <FaYoutube size={32} />
-                    </motion.a>
-                  </motion.div>
-                </motion.section>
-              )}
+                  <h3 className="text-xl md:text-2xl font-bold text-yellow-400 mb-2">{edu.year}</h3>
+                  <p className="text-lg text-white mb-1">{edu.degree}</p>
+                  <p className="text-md text-gray-300">{edu.institution}</p>
+                  {edu.details && <p className="text-sm text-gray-400 mt-2">{edu.details}</p>}
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* GitHub Projects Call to Action Section */}
+          <motion.section
+            id="github-projects"
+            ref={githubProjectsRef}
+            className="github-cta-section flex flex-col justify-center items-center text-center py-20 px-6 my-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+            style={{ backgroundImage: `url(${githubCtaBg})` }}
+          >
+            <motion.h2
+              className="text-4xl md:text-6xl font-extrabold text-blue-400 mb-4 font-heading"
+              variants={textVariants}
+            >
+              More projects on Github
+            </motion.h2>
+            <motion.p
+              className="text-xl md:text-2xl text-white mb-8"
+              variants={textVariants}
+            >
+              Check Out!!
+            </motion.p>
+            <motion.a
+              href="https://github.com/pranavv1210"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-lg rounded-full shadow-lg hover:bg-orange-600 hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              variants={textVariants}
+            >
+              GITHUB
+            </motion.a>
+          </motion.section>
+
+          {/* Contact Section */}
+          <motion.section
+            id="contact"
+            ref={contactRef}
+            className="section-card py-16 px-6 text-center max-w-6xl mx-auto my-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-10 text-light-gray font-heading"
+              variants={textVariants}
+            >
+              Reach Me
+            </motion.h2>
+            <motion.p
+              className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto"
+              variants={textVariants}
+            >
+              Feel free to connect with me through any of the platforms below. Just reach out on:
+            </motion.p>
+            <motion.div
+              className="flex flex-wrap justify-center gap-8 md:gap-12"
+              variants={textVariants}
+            >
+              <motion.a
+                href="mailto:pranavv736@gmail.com"
+                className="text-light-gray hover:text-blue-400 transform hover:scale-125 transition-transform duration-200"
+                aria-label="Email Pranav"
+              >
+                <FaEnvelope size={40} />
+              </motion.a>
+              <motion.a
+                href="tel:+917676858328"
+                className="text-light-gray hover:text-green-400 transform hover:scale-125 transition-transform duration-200"
+                aria-label="Call Pranav"
+              >
+                <FaPhone size={40} />
+              </motion.a>
+              <motion.a
+                href="https://www.instagram.com/pranavvenu_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-gray hover:text-pink-400 transform hover:scale-125 transition-transform duration-200"
+                aria-label="Visit Pranav's Instagram"
+              >
+                <FaInstagram size={40} />
+              </motion.a>
+              <motion.a
+                href="https://www.linkedin.com/in/pranav-venu-550729264/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-gray hover:text-blue-500 transform hover:scale-125 transition-transform duration-200"
+                aria-label="Visit Pranav's LinkedIn"
+              >
+                <FaLinkedin size={40} />
+              </motion.a>
+              <motion.a
+                href="https://github.com/pranavv1210"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-gray hover:text-gray-400 transform hover:scale-125 transition-transform duration-200"
+                aria-label="Visit Pranav's GitHub"
+              >
+                <FaGithub size={40} />
+              </motion.a>
+              <motion.a
+                href="https://www.youtube.com/@pranavvenu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-gray hover:text-red-500 transform hover:scale-125 transition-transform duration-200"
+                aria-label="Visit Pranav's YouTube"
+              >
+                <FaYoutube size={40} />
+              </motion.a>
+            </motion.div>
+          </motion.section>
+        </div>
+
+        {/* Footer: Made with ❤️ by Pranav */}
+        <motion.footer
+          className="w-full py-6 text-center text-gray-400 text-sm bg-dark-gray"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          Made with <span style={{ color: '#ff6b6b' }}>♥</span> by Pranav
+        </motion.footer>
+
+        {/* Dock - Conditionally rendered with AnimatePresence */}
+        <AnimatePresence>
+          {showDock && (
+            <motion.div
+              className="fixed bottom-0 left-0 right-0 z-50"
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: '0%', opacity: 1 }}
+              exit={{ y: '100%', opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Dock items={dockItems} />
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Conditionally render the Dock only when not on the home page */}
-        {!isMenuVisible && (
-          <div className="fixed bottom-0 left-0 right-0 z-20">
-            <Dock items={dockItems} />
-          </div>
-        )}
       </div>
     </ErrorBoundary>
   );

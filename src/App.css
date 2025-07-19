@@ -1,26 +1,59 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap');
+
 /* Existing styles (desktop remains unchanged) */
 :root {
-  --dark-gray: #1E1E1E;
-  --medium-gray: #808080;
-  --light-gray: #D0D0D0;
+  --dark-gray: #121212; /* Darker background for more contrast */
+  --medium-gray: #1e1e1e; /* Slightly lighter for card backgrounds */
+  --light-gray: #e0e0e0; /* Brighter text color */
+  --accent-blue: #4a90e2; /* A blue accent */
+  --accent-purple: #9b59b6; /* A purple accent */
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Default body font */
   background-color: var(--dark-gray);
   color: var(--light-gray);
+  scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
-.menu-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  position: relative;
+/* Custom font families */
+.font-inter { font-family: 'Inter', sans-serif; }
+.font-montserrat { font-family: 'Montserrat', sans-serif; }
+.font-roboto { font-family: 'Roboto', sans-serif; }
+
+/* Global Section Styling */
+.section-card {
+  background-color: var(--medium-gray);
+  border-radius: 16px; /* Slightly larger border radius */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+  padding: 3rem 2rem; /* Increased padding */
+  margin-bottom: 4rem; /* More space between sections */
+  backdrop-filter: blur(5px); /* Subtle blur effect */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
 }
 
+/* Hero Section Specific Styles */
+.hero-section {
+  min-height: calc(100vh - 80px); /* Adjust for dock height */
+  padding-bottom: 80px; /* Space for the dock */
+}
+
+.hero-section h1 {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -2px; /* Tighter letter spacing for impact */
+  line-height: 1;
+}
+
+.hero-section .text-rotate-word {
+  /* Inherit text styling from parent for RotatingText */
+  font-family: 'Inter', sans-serif;
+  color: var(--light-gray); /* Ensure color applies */
+}
+
+/* Rotating Text Specifics (Adjusted for better appearance) */
 .text-rotate {
   display: inline-block;
 }
@@ -43,141 +76,233 @@ body {
 
 .text-rotate-space {
   display: inline-block;
-  width: 0.25em;
+  width: 0.3em; /* Slightly wider space */
 }
 
 .text-rotate-element {
   display: inline-block;
 }
 
+
+/* Project Card specific style */
 .project-card {
-  background-color: rgba(128, 128, 128, 0.5);
-  border-radius: 8px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+
+/* Skills section - ScrollVelocity */
+.skills-text .scroller {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem; /* Larger font for skills */
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7); /* Lighter color for skills */
+  margin-top: 30px; /* Adjust spacing */
+}
+
+/* Education Section Heading Underline */
+.education-heading {
+  position: relative;
+  display: inline-block; /* Allows ::after to position relative to text */
+  padding-bottom: 0.5rem; /* Space for the underline */
+}
+
+.education-heading::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px; /* Width of the underline */
+  height: 4px; /* Thickness of the underline */
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-purple)); /* Gradient color */
+  border-radius: 2px; /* Slightly rounded ends */
+}
+
+/* New GitHub Projects Call to Action Section Styles */
+.github-cta-section {
+  background-color: var(--dark-gray); /* Fallback background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.github-cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  z-index: -1; /* Place behind content */
+}
+
+.github-cta-section h2,
+.github-cta-section p,
+.github-cta-section a {
+  position: relative; /* Ensure text and button are above the overlay */
+  z-index: 1;
+}
+
 
 /* Mobile Responsiveness (only changes for mobile) */
 @media (max-width: 768px) {
-  /* Adjust About Me Section */
-  #about {
-    padding: 2rem 1rem;
+  :root {
+    --dark-gray: #121212;
+    --medium-gray: #2a2a2a;
+    --light-gray: #f0f0f0;
   }
 
+  /* Adjust Hero Section */
+  .hero-section {
+    min-height: calc(100vh - 60px);
+    padding-bottom: 60px;
+  }
+
+  .hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-section .text-rotate {
+    font-size: 1.5rem;
+  }
+
+  .hero-section button {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  /* General Section Card Adjustments */
+  .section-card {
+    padding: 2rem 1rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+  }
+
+  .section-card h2 {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* About Me Section */
   #about .flex {
     flex-direction: column;
+    gap: 2rem;
   }
 
   #about .md\:w-1\/2 {
     width: 100%;
-    padding: 1rem;
+    padding: 0;
   }
 
-  #about .pt-32 {
-    padding-top: 6rem;
-  }
-
-  #about .pt-20 {
-    padding-top: 1rem;
-  }
-
-  #about h3 {
-    font-size: 1.5rem;
-  }
-
-  #about .text-xl {
-    font-size: 1rem;
+  #about .order-1, #about .order-2 {
+    order: unset;
   }
 
   #about .text-lg {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
-  #about .max-w-md {
-    max-width: 100%;
-  }
-
-  /* Adjust TiltedCard (Photo) to be visible on mobile */
   #about .TiltedCard {
-    container-height: 300px !important;
-    container-width: 100% !important;
-    image-height: 300px !important;
-    image-width: 100% !important;
-    display: block !important;
+    container-height: 280px !important;
+    image-height: 280px !important;
   }
 
-  /* Hide any desktop-only message if present */
-  #about .TiltedCard::after {
-    content: none !important;
+  #about h3.text-3xl {
+    font-size: 1.75rem;
   }
 
-  /* Adjust Skills Section */
-  #about .mt-12 {
-    margin-top: 2rem;
+  /* Skills section font size */
+  .skills-text .scroller {
+    font-size: 1.2rem;
   }
 
-  #about h3.text-2xl {
+  /* Education Section Mobile Adjustments */
+  #education .grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 1.5rem;
+  }
+
+  .education-card h3 {
     font-size: 1.25rem;
   }
-
-  /* Adjust Resume Button */
-  #about .px-6.py-2 {
-    padding: 0.5rem 1.5rem;
+  .education-card p {
     font-size: 0.9rem;
   }
-
-  /* Adjust Projects Section */
-  #projects {
-    padding: 2rem 1rem;
+  .education-card .text-md {
+    font-size: 0.8rem;
   }
 
-  #projects .text-4xl {
-    font-size: 1.5rem;
+
+  /* Projects Section */
+  #projects .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   #projects .project-card {
-    padding: 1rem;
+    padding: 1.2rem;
   }
 
   #projects .text-2xl {
-    font-size: 1.25rem;
-  }
-
-  #projects .text-lg {
-    font-size: 0.9rem;
-  }
-
-  #projects .text-sm {
-    font-size: 0.75rem;
-  }
-
-  /* Adjust Contact Section */
-  #contact {
-    padding: 2rem 1rem;
-  }
-
-  #contact .text-4xl {
     font-size: 1.5rem;
   }
 
-  #contact .max-w-md {
-    max-width: 100%;
-    gap: 1rem;
+  #projects .text-lg {
+    font-size: 0.95rem;
+  }
+
+  #projects .tech-stack span {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.6rem;
+  }
+
+  /* GitHub CTA Section Mobile Adjustments */
+  .github-cta-section {
+    min-height: 300px;
+    padding: 3rem 1rem;
+  }
+
+  .github-cta-section h2 {
+    font-size: 2.5rem;
+  }
+
+  .github-cta-section p {
+    font-size: 1.1rem;
+  }
+
+  .github-cta-section a {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.8rem;
+  }
+
+
+  /* Contact Section */
+  #contact .text-xl {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   #contact svg {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
   }
 
-  /* Adjust FlowingMenu */
-  .menu-container {
-    height: auto;
-    padding: 2rem 1rem;
+  #contact .flex {
+    gap: 1.5rem;
   }
 
   /* Ensure Aurora background scales */
   .relative.min-h-screen {
     min-height: auto;
   }
+}
+
+/* Ensure z-index for content is above aurora */
+.relative.min-h-screen > .relative.z-10 {
+  position: relative;
+  z-index: 10;
 }
