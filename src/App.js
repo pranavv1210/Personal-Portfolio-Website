@@ -5,12 +5,10 @@ import {
   FaPython, FaJsSquare, FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaAws,
   FaJava, FaFigma, FaWindows, FaCode, FaChartBar, FaChartPie, FaMobileAlt, FaFlask, FaCameraRetro, FaLeaf, FaRobot, // Existing and alternative FA icons
   FaHtml5, FaCss3 // New FA icons for Web Technology
-  // Removed FaDocker, FaKubernetes from FA imports as they are no longer used
 } from "react-icons/fa";
 import {
   SiTensorflow, // Existing SI icon
   SiMongodb, SiMysql // Only these specific SI icons are now imported
-  // Removed SiDocker, SiKubernetes from SI imports as they are no longer used
 } from "react-icons/si";
 
 import projects from "./projects.json";
@@ -22,9 +20,9 @@ import { ScrollVelocity } from "./ScrollVelocity";
 import Dock from "./Dock";
 import pranavPhoto from "./assets/pranav-photo.jpg";
 import githubCtaBg from "./assets/image_616736.jpg";
-import resumeProjectImage from './assets/resume.png';
+import resumeProjectImage from './assets/resume.png'; // Make sure this is .png or .jpg based on your file
 import ageProjectImage from './assets/age.jpg';
-import portfolioWebsiteImage from './assets/portfolio_website.png';
+import portfolioWebsiteImage from './assets/portfolio_website.png'; // Make sure this is .png or .jpg based on your file
 
 
 import "./App.css";
@@ -398,9 +396,9 @@ function App() {
 
   // Map project image paths to imported modules
   const projectImageMap = useMemo(() => ({
-    './assets/resume.jpg': resumeProjectImage,
+    './assets/resume.png': resumeProjectImage, // Make sure extension matches actual file
     './assets/age.jpg': ageProjectImage,
-    './assets/portfolio_website.jpg': portfolioWebsiteImage,
+    './assets/portfolio_website.png': portfolioWebsiteImage, // Make sure extension matches actual file
   }), []);
 
   // Dock items - All items back as originally, as per user's last request (reinstating My Works)
@@ -609,6 +607,24 @@ function App() {
                   </motion.div>
                 ))}
               </div>
+            </motion.div>
+            {/* Download Resume Button - Moved to be a direct child of the section */}
+            <motion.div className="flex justify-center mt-10">
+              <motion.a
+                href="/Pranav_V_Resume.pdf"
+                download="Pranav_V_Resume.pdf"
+                className="relative inline-block px-8 py-3 text-white font-roboto text-lg font-semibold rounded-full overflow-hidden bg-gradient-to-r from-teal-500 to-blue-600 shadow-md hover:shadow-lg transition-all duration-300 group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10">Download Resume</span>
+                <motion.span
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
+                />
+              </motion.a>
             </motion.div>
           </motion.section>
 
