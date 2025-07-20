@@ -89,20 +89,20 @@ body {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Skills section - ScrollVelocity */
-.skills-text .scroller {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.8rem; /* Larger font for skills */
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7); /* Lighter color for skills */
-  margin-top: 30px; /* Adjust spacing */
+/* New Skill Bar Styles */
+.skill-bar-container {
+  /* Styles defined inline in JSX */
+}
+
+.skill-bar-fill {
+  /* Styles defined inline in JSX */
 }
 
 /* Education Section Heading Underline */
 .education-heading {
   position: relative;
-  display: inline-block; /* Allows ::after to position relative to text */
-  padding-bottom: 0.5rem; /* Space for the underline */
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
 .education-heading::after {
@@ -111,15 +111,15 @@ body {
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 80px; /* Width of the underline */
-  height: 4px; /* Thickness of the underline */
-  background: linear-gradient(to right, var(--accent-blue), var(--accent-purple)); /* Gradient color */
-  border-radius: 2px; /* Slightly rounded ends */
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+  border-radius: 2px;
 }
 
 /* New GitHub Projects Call to Action Section Styles */
 .github-cta-section {
-  background-color: var(--dark-gray); /* Fallback background */
+  background-color: var(--dark-gray);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -133,14 +133,14 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
-  z-index: -1; /* Place behind content */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .github-cta-section h2,
 .github-cta-section p,
 .github-cta-section a {
-  position: relative; /* Ensure text and button are above the overlay */
+  position: relative;
   z-index: 1;
 }
 
@@ -215,14 +215,21 @@ body {
     font-size: 1.75rem;
   }
 
-  /* Skills section font size */
-  .skills-text .scroller {
-    font-size: 1.2rem;
+  /* Skills Section Mobile Adjustments */
+  #about .grid.grid-cols-1.md\:grid-cols-2 {
+    grid-template-columns: 1fr; /* Single column for skill bars on mobile */
+  }
+
+  .skill-bar-container {
+    height: 8px; /* Thinner bars on mobile */
+  }
+  .skill-category-card { /* Removed, replaced by general skill bars */
+    padding: 1rem;
   }
 
   /* Education Section Mobile Adjustments */
   #education .grid {
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 

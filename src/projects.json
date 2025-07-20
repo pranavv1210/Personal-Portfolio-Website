@@ -1,14 +1,26 @@
 [
   {
     "id": 1,
-    "title": "AI Resume Screening System",
-    "description": "An advanced AI-driven platform that revolutionizes recruitment by automating resume screening. Using Natural Language Processing, the system extracts skills, experience, and qualifications from resumes, matching them against job descriptions with a custom ranking algorithm. It features a chatbot powered by Dialogflow, allowing candidates to ask questions, receive feedback, and schedule interviews in real-time. Deployed on AWS with a scalable Flask backend, it reduces screening time by 70% and improves candidate selection accuracy. Developed during a 2024 hackathon, it won the Best AI Solution award for its innovative approach.",
-    "techStack": ["Python 3.9", "spaCy (NLP)", "Dialogflow API", "AWS (EC2, S3)", "Flask", "React 18", "PostgreSQL", "NLTK", "Pandas"]
+    "title": "AI Resume Screening System with Chatbot Integration",
+    "description": "Developing a comprehensive web application to revolutionize recruitment by automating resume screening and enhancing candidate engagement. This system leverages advanced AI/NLP to accurately parse resumes, semantically match candidates to job descriptions, and provide explainable, bias-mitigated scores. It features a proactive, Al-driven chatbot offering real-time resume feedback to candidates before submission, alongside robust HR tools for collaborative evaluation and intelligent insights.",
+    "techStack": ["React.js", "Node.js (Express)", "AI/NLP", "MongoDB", "Cloudflare R2", "Auth.js", "Rasa Open Source"],
+    "imageSrc": "./assets/resume.jpg",
+    "githubLink": "https://github.com/pranavv1210/AI-Resume-Screening-Repo"
   },
   {
-    "id": 2,
-    "title": "Age and Gender Detection",
-    "description": "A real-time computer vision system that predicts age and gender from facial images using deep learning. Built with OpenCV and a Convolutional Neural Network (CNN) pre-trained on the UTKFace dataset, it achieves 85% accuracy in diverse lighting conditions. The system processes live video streams or static images, making it ideal for applications like targeted advertising, user demographics analysis, and security systems. Optimized for edge devices with TensorFlow Lite, it includes a React-based web interface for user interaction. Completed as a 2025 capstone project, it was praised for its performance and usability.",
-    "techStack": ["Python 3.8", "OpenCV 4.5", "TensorFlow 2.8", "CNN (Custom Architecture)", "TensorFlow Lite", "React 18", "Node.js 16", "Express", "WebRTC"]
+  "id": 2,
+  "title": "Personal Portfolio Website",
+  "description": "Built a responsive personal portfolio website using React to showcase projects, skills, and experience. Implemented a clean, modern UI with reusable components and smooth navigation. Deployed the site on GitHub Pages, ensuring mobile responsiveness and fast load times for an optimized user experience.",
+  "techStack": ["React", "HTML", "CSS", "JavaScript", "GitHub Pages"],
+  "imageSrc": "./assets/portfolio_website.png",
+  "githubLink": "https://github.com/pranavv1210/portfolio-website"
+},
+  {
+    "id": 3,
+    "title": "Age and Gender Detection using AI",
+    "description": "Developed a real-time Age and Gender Detection system leveraging Computer Vision (OpenCV) and pre-trained Deep Learning (Caffe-based Convolutional Neural Networks). The system dynamically processes live webcam streams and static images/videos to perform robust face detection. Subsequent to detection, cropped facial regions are fed into specialized CNN models for accurate gender classification and age estimation. This Al-powered solution showcases proficiency in Python and deep learning frameworks, enabling the extraction of immediate demographic insights critical for applications in smart surveillance, retail analytics, and interactive systems.",
+    "techStack": ["Python", "OpenCV", "Argparse", "Deep Learning (Caffe Models)"],
+    "imageSrc": "./assets/age.jpg",
+    "githubLink": "https://github.com/pranavv1210/Age-Gender-Detection-Repo"
   }
 ]

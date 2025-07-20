@@ -1,28 +1,34 @@
 import React, { useState, useRef, useEffect, forwardRef, useCallback, useImperativeHandle, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaHome, FaUser, FaBriefcase, FaPaperPlane, FaGithub, FaGraduationCap } from 'react-icons/fa';
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  FaPython,
-  FaJsSquare,
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-  FaGitAlt,
-  FaAws,
-} from 'react-icons/fa';
-import { SiTensorflow } from 'react-icons/si';
-import projects from './projects.json';
-import ErrorBoundary from './ErrorBoundary';
-import VariableProximity from './VariableProximity';
-import Aurora from './Aurora';
-import TiltedCard from './TiltedCard';
-import { ScrollVelocity } from './ScrollVelocity'; // Corrected import syntax
-import Dock from './Dock';
-import pranavPhoto from './assets/pranav-photo.jpg';
-import githubCtaBg from './assets/image_616736.jpg'; // Ensure this image is in src/assets/
+  FaEnvelope, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaHome, FaUser, FaBriefcase, FaPaperPlane, FaGithub, FaGraduationCap,
+  FaPython, FaJsSquare, FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaAws,
+  FaJava, FaFigma, FaWindows, FaCode, FaChartBar, FaChartPie, FaMobileAlt, FaFlask, FaCameraRetro, FaLeaf, FaRobot, // Existing and alternative FA icons
+  FaHtml5, FaCss3 // New FA icons for Web Technology
+  // Removed FaDocker, FaKubernetes from FA imports as they are no longer used
+} from "react-icons/fa";
+import {
+  SiTensorflow, // Existing SI icon
+  SiMongodb, SiMysql // Only these specific SI icons are now imported
+  // Removed SiDocker, SiKubernetes from SI imports as they are no longer used
+} from "react-icons/si";
 
-import './App.css';
-import './Dock.css';
+import projects from "./projects.json";
+import ErrorBoundary from "./ErrorBoundary";
+import VariableProximity from "./VariableProximity";
+import Aurora from "./Aurora";
+import TiltedCard from "./TiltedCard";
+import { ScrollVelocity } from "./ScrollVelocity";
+import Dock from "./Dock";
+import pranavPhoto from "./assets/pranav-photo.jpg";
+import githubCtaBg from "./assets/image_616736.jpg";
+import resumeProjectImage from './assets/resume.png';
+import ageProjectImage from './assets/age.jpg';
+import portfolioWebsiteImage from './assets/portfolio_website.png';
+
+
+import "./App.css";
+import "./Dock.css";
 
 // RotatingText Component (remains unchanged)
 const RotatingText = forwardRef((props, ref) => {
@@ -238,22 +244,36 @@ function App() {
   const githubProjectsRef = useRef(null);
   const contactRef = useRef(null);
 
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
   const [showDock, setShowDock] = useState(true); // State to control dock visibility
 
   const scrollToSection = useCallback((sectionRef, sectionName) => {
-    sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    sectionRef.current.scrollIntoView({ behavior: "smooth" });
     setActiveSection(sectionName);
   }, []);
 
-  const menuItems = useMemo(() => [
-    { link: "#home", text: "Home", ref: homeRef },
-    { link: "#about", text: "About Me", ref: aboutRef },
-    { link: "#education", text: "Education", ref: educationRef },
-    { link: "#projects", text: "My Works", ref: projectsRef },
-    { link: "#github-projects", text: "More Projects", ref: githubProjectsRef },
-    { link: "#contact", text: "Reach Me", ref: contactRef },
-  ], [homeRef, aboutRef, educationRef, projectsRef, githubProjectsRef, contactRef]);
+  const menuItems = useMemo(
+    () => [
+      { link: "#home", text: "Home", ref: homeRef },
+      { link: "#about", text: "About Me", ref: aboutRef },
+      { link: "#education", text: "Education", ref: educationRef },
+      { link: "#projects", text: "My Works", ref: projectsRef },
+      {
+        link: "#github-projects",
+        text: "More Projects",
+        ref: githubProjectsRef,
+      },
+      { link: "#contact", text: "Reach Me", ref: contactRef },
+    ],
+    [
+      homeRef,
+      aboutRef,
+      educationRef,
+      projectsRef,
+      githubProjectsRef,
+      contactRef,
+    ]
+  );
 
   // Scroll handler to hide/show dock
   const handleScroll = useCallback(() => {
@@ -262,7 +282,7 @@ function App() {
     const clientHeight = document.documentElement.clientHeight;
     // Hide dock if scrolled near the bottom (e.g., within 100px of the very bottom)
     // Adjust 100 to change how close to the bottom it disappears
-    const isAtBottom = (scrollTop + clientHeight) >= (scrollHeight - 100);
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 100;
 
     setShowDock(!isAtBottom);
   }, []);
@@ -270,12 +290,12 @@ function App() {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.5
+      rootMargin: "0px",
+      threshold: 0.5,
     };
 
     const observerCallback = (entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
         }
@@ -284,26 +304,25 @@ function App() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    menuItems.forEach(item => {
+    menuItems.forEach((item) => {
       if (item.ref.current) {
         observer.observe(item.ref.current);
       }
     });
 
     // Add scroll event listener for dock visibility
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      menuItems.forEach(item => {
+      menuItems.forEach((item) => {
         if (item.ref.current) {
           observer.unobserve(item.ref.current);
         }
       });
       // Clean up scroll event listener
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [menuItems, handleScroll]);
-
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.98 },
@@ -311,7 +330,7 @@ function App() {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.8, ease: 'easeOut', staggerChildren: 0.1 },
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.1 },
     },
   };
 
@@ -326,16 +345,34 @@ function App() {
     "Innovator in Tech",
   ];
 
-  const skills = [
-    { name: "Python", logo: <FaPython style={{ color: '#3776AB' }} /> },
-    { name: "JavaScript", logo: <FaJsSquare style={{ color: '#F7DF1E' }} /> },
-    { name: "React", logo: <FaReact style={{ color: '#61DAFB' }} /> },
-    { name: "TensorFlow", logo: <SiTensorflow style={{ color: '#FF6A00' }} /> },
-    { name: "Node.js", logo: <FaNodeJs style={{ color: '#339933' }} /> },
-    { name: "SQL", logo: <FaDatabase style={{ color: '#4479A1' }} /> },
-    { name: "Git", logo: <FaGitAlt style={{ color: '#F05032' }} /> },
-    { name: "AWS", logo: <FaAws style={{ color: '#FF9900' }} /> },
-  ];
+  // General Skills for Progress Bars
+  const generalSkills = useMemo(() => [
+    { name: "Python", level: 90 },
+    { name: "C", level: 70 },
+    { name: "Data Analytics", level: 80 },
+    { name: "Web Development", level: 85 },
+    { name: "Machine Learning", level: 90 },
+  ], []);
+
+  // Logos for Other Skills and Frameworks
+  const otherSkillsLogos = useMemo(() => [
+    { name: "Python", icon: <FaPython style={{ color: "#3776AB" }} /> },
+    { name: "C", icon: <span className="text-white text-3xl font-bold">C</span> },
+    { name: "Java", icon: <FaJava style={{ color: "#007396" }} /> },
+    { name: "MongoDB", icon: <SiMongodb style={{ color: "#47A248" }} /> },
+    { name: "MySQL", icon: <SiMysql style={{ color: "#4479A1" }} /> },
+    { name: "Node.js", icon: <FaNodeJs style={{ color: "#339933" }} /> },
+    { name: "React", icon: <FaReact style={{ color: "#61DAFB" }} /> },
+    // Removed Docker
+    // Removed Kubernetes
+    { name: "Git", icon: <FaGitAlt style={{ color: "#F05032" }} /> },
+    { name: "GitHub", icon: <FaGithub style={{ color: "#FFFFFF" }} /> },
+    { name: "HTML", icon: <FaHtml5 style={{ color: "#E34F26" }} /> },
+    { name: "CSS", icon: <FaCss3 style={{ color: "#1572B6" }} /> },
+    { name: "JavaScript", icon: <FaJsSquare style={{ color: "#F7DF1E" }} /> },
+    // Removed LangChain
+  ], []);
+
 
   // Education data - CGPA details removed
   const educationData = useMemo(() => [
@@ -349,41 +386,60 @@ function App() {
       id: 2,
       year: "2020-2022",
       degree: "Pre-University Board (PCMB)",
-      institution: "St. Joseph's Pre-University College"
+      institution: "St. Joseph's Pre-University College",
     },
     {
       id: 3,
       year: "2007-2020",
       degree: "International Council of Secondary Education (ICSE)",
-      institution: "Cambridge School"
-    }
+      institution: "Cambridge School",
+    },
   ], []);
 
-  // Dock items - Education and More Projects options removed
+  // Map project image paths to imported modules
+  const projectImageMap = useMemo(() => ({
+    './assets/resume.jpg': resumeProjectImage,
+    './assets/age.jpg': ageProjectImage,
+    './assets/portfolio_website.jpg': portfolioWebsiteImage,
+  }), []);
+
+  // Dock items - All items back as originally, as per user's last request (reinstating My Works)
   const dockItems = [
     {
       label: "Home",
       icon: <FaHome size={24} color="#fff" />,
-      onClick: () => scrollToSection(homeRef, 'home'),
-      isActive: activeSection === 'home'
+      onClick: () => scrollToSection(homeRef, "home"),
+      isActive: activeSection === "home",
     },
     {
       label: "About Me",
       icon: <FaUser size={24} color="#fff" />,
-      onClick: () => scrollToSection(aboutRef, 'about'),
-      isActive: activeSection === 'about'
+      onClick: () => scrollToSection(aboutRef, "about"),
+      isActive: activeSection === "about",
+    },
+    {
+      label: "Education",
+      icon: <FaGraduationCap size={24} color="#fff" />,
+      onClick: () => scrollToSection(educationRef, "education"),
+      isActive: activeSection === "education",
     },
     {
       label: "My Works",
       icon: <FaBriefcase size={24} color="#fff" />,
-      onClick: () => scrollToSection(projectsRef, 'projects'),
-      isActive: activeSection === 'projects'
+      onClick: () => scrollToSection(projectsRef, "projects"),
+      isActive: activeSection === "projects",
+    },
+    {
+      label: "More Projects",
+      icon: <FaGithub size={24} color="#fff" />,
+      onClick: () => scrollToSection(githubProjectsRef, "github-projects"),
+      isActive: activeSection === "github-projects",
     },
     {
       label: "Reach Me",
       icon: <FaPaperPlane size={24} color="#fff" />,
-      onClick: () => scrollToSection(contactRef, 'contact'),
-      isActive: activeSection === 'contact'
+      onClick: () => scrollToSection(contactRef, "contact"),
+      isActive: activeSection === "contact",
     },
   ];
 
@@ -391,7 +447,7 @@ function App() {
     <ErrorBoundary>
       <div className="relative min-h-screen bg-dark-gray text-light-gray font-inter overflow-hidden">
         <Aurora
-          colorStops={['#1a1a2e', '#16213e', '#0f3460']}
+          colorStops={["#1a1a2e", "#16213e", "#0f3460"]}
           amplitude={1.5}
           blend={0.7}
         />
@@ -399,7 +455,6 @@ function App() {
         <div className="absolute inset-0 z-0"></div>
 
         <div className="relative z-10 pb-20">
-
           {/* Hero Section */}
           <section
             id="home"
@@ -410,7 +465,7 @@ function App() {
               className="text-6xl md:text-8xl font-extrabold text-light-gray mb-4 font-heading"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
+              transition={{ duration: 1, ease: "easeOut" }}
             >
               PRANAV V
             </motion.h1>
@@ -418,7 +473,7 @@ function App() {
               className="mt-2"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
             >
               <RotatingText
                 texts={captions}
@@ -434,8 +489,8 @@ function App() {
               className="mt-12 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.6 }}
-              onClick={() => scrollToSection(aboutRef, 'about')}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+              onClick={() => scrollToSection(aboutRef, "about")}
             >
               Learn More About Me
             </motion.button>
@@ -513,38 +568,47 @@ function App() {
               viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariants}
             >
-              <h3 className="text-3xl font-bold mb-8 text-center text-light-gray">My Skills</h3>
-              <ScrollVelocity
-                scrollContainerRef={aboutRef}
-                skills={skills}
-                velocity={-50}
-                className="skills-text"
-                damping={50}
-                stiffness={400}
-                numCopies={6}
-                velocityMapping={{ input: [0, 1000], output: [0, 5] }}
-                parallaxClassName="parallax"
-                scrollerClassName="scroller"
-                parallaxStyle={{ marginTop: '20px' }}
-                scrollerStyle={{}}
-              />
-              <motion.div className="flex justify-center mt-10">
-                <motion.a
-                  href="/Pranav_V_Resume.pdf"
-                  download="Pranav_V_Resume.pdf"
-                  className="relative inline-block px-8 py-3 text-white font-roboto text-lg font-semibold rounded-full overflow-hidden bg-gradient-to-r from-teal-500 to-blue-600 shadow-md hover:shadow-lg transition-all duration-300 group"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="relative z-10">Download Resume</span>
-                  <motion.span
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: '100%' }}
-                    transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-                  />
-                </motion.a>
-              </motion.div>
+              <h3 className="text-3xl font-bold mb-8 text-center text-light-gray">Skills</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-x-12 max-w-2xl mx-auto">
+                {generalSkills.map((skill, index) => (
+                  <div key={index} className="flex items-center space-x-4">
+                    <span className="text-lg font-semibold text-light-gray w-32 flex-shrink-0">
+                      {skill.name}
+                    </span>
+                    <div className="skill-bar-container flex-grow h-3 bg-gray-600 rounded-full overflow-hidden">
+                      <motion.div
+                        className="skill-bar-fill h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        viewport={{ once: true }}
+                      ></motion.div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <h4 className="text-xl font-semibold text-gray-300 mt-12 mb-6 text-center">
+                Other Skills and Framework tools:
+              </h4>
+              <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-4xl mx-auto">
+                {otherSkillsLogos.map((skill, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex flex-col items-center p-2 rounded-lg bg-gray-800 bg-opacity-50"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <span className="text-4xl mb-1">
+                      {skill.icon}
+                    </span>
+                    <span className="text-xs text-gray-300 font-medium whitespace-nowrap">
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </motion.section>
 
@@ -575,7 +639,78 @@ function App() {
                   <h3 className="text-xl md:text-2xl font-bold text-yellow-400 mb-2">{edu.year}</h3>
                   <p className="text-lg text-white mb-1">{edu.degree}</p>
                   <p className="text-md text-gray-300">{edu.institution}</p>
-                  {edu.details && <p className="text-sm text-gray-400 mt-2">{edu.details}</p>}
+                  {edu.details && (
+                    <p className="text-sm text-gray-400 mt-2">{edu.details}</p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* Projects Section - My Works */}
+          <motion.section
+            id="projects"
+            ref={projectsRef}
+            className="section-card py-16 px-6 max-w-7xl mx-auto my-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold mb-10 text-center text-light-gray font-heading"
+              variants={textVariants}
+            >
+              My Works
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  className="project-card p-6 bg-gray-700 bg-opacity-70 rounded-xl shadow-lg border border-gray-600 transform hover:scale-[1.02] transition-transform duration-300 ease-in-out"
+                  variants={textVariants}
+                >
+                  {/* Project Image and Link */}
+                  {project.imageSrc && (
+                    <motion.a
+                      href={project.githubLink || "#"}
+                      target={project.githubLink ? "_blank" : "_self"}
+                      rel={project.githubLink ? "noopener noreferrer" : ""}
+                      className="block mb-4 overflow-hidden rounded-lg cursor-pointer"
+                      whileHover={{ scale: 1.03 }}
+                    >
+                      <img
+                        src={projectImageMap[project.imageSrc]}
+                        alt={project.title}
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                    </motion.a>
+                  )}
+
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    {project.title}
+                  </h3>
+                  <div className="text-lg text-gray-300 mb-4 text-justify">
+                    <VariableProximity
+                      label={project.description}
+                      fromFontVariationSettings="'wght' 400"
+                      toFontVariationSettings="'wght' 900"
+                      containerRef={projectsRef}
+                      radius={35}
+                      falloff="gaussian"
+                    />
+                  </div>
+                  <div className="tech-stack flex flex-wrap gap-2 mt-4">
+                    <p className="text-gray-200 font-semibold">Tech Stack:</p>
+                    {project.techStack.map((stackItem, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-block bg-blue-800 bg-opacity-60 text-blue-100 rounded-full px-3 py-1 text-sm font-medium"
+                      >
+                        {stackItem}
+                      </span>
+                    ))}
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -703,7 +838,7 @@ function App() {
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          Made with <span style={{ color: '#ff6b6b' }}>♥</span> by Pranav
+          Made with <span style={{ color: "#ff6b6b" }}>♥</span> by Pranav
         </motion.footer>
 
         {/* Dock - Conditionally rendered with AnimatePresence */}
@@ -711,9 +846,9 @@ function App() {
           {showDock && (
             <motion.div
               className="fixed bottom-0 left-0 right-0 z-50"
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: '0%', opacity: 1 }}
-              exit={{ y: '100%', opacity: 0 }}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              exit={{ y: "100%", opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
               <Dock items={dockItems} />
