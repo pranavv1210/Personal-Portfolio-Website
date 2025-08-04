@@ -12,14 +12,6 @@ Experience the live portfolio in action:
 
 ---
 
-## 📸 Sneak Peek
-
-Here's a glimpse of my portfolio:
-
-![Portfolio Screenshot](https://raw.githubusercontent.com/pranavv1210/portfolio-website/main/assets/portfolio_website.png)
-
----
-
 ## 🚀 Key Features
 
 * **About Me**: Dive into my background, passions, and professional journey as a 21-year-old AI/ML enthusiast from Bengaluru, currently pursuing B.E. at CMR Institute of Technology.
