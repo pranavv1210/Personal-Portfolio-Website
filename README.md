@@ -1,6 +1,6 @@
 # 🌟 Pranav V's Personal Portfolio Website
 
-![Build Status](https://github.com/pranavv1210/portfolio-website/workflows/CI/badge.svg) Welcome to the GitHub repository for **Pranav V's personal portfolio website**! This interactive platform showcases my journey as an **emerging AI/ML Engineer**, highlighting my innovative projects, diverse skills, and easy ways to connect. Built with cutting-edge web technologies, it offers a dynamic and engaging user experience.
+Welcome to the GitHub repository for **Pranav V's personal portfolio website**! This interactive platform showcases my journey as an **emerging AI/ML Engineer**, highlighting my innovative projects, diverse skills, and easy ways to connect. Built with cutting-edge web technologies, it offers a dynamic and engaging user experience.
 
 ---
 
