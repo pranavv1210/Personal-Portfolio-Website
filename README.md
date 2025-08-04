@@ -1,6 +1,6 @@
 # 🌟 Pranav V's Personal Portfolio Website
 
-![Build Status](https://github.com/pranavv1210/portfolio-website/workflows/CI/badge.svg) ![GitHub Pages](https://github.com/pranavv1210/portfolio-website/workflows/Deploy%20to%20GitHub%20Pages/badge.svg) Welcome to the GitHub repository for **Pranav V's personal portfolio website**! This interactive platform showcases my journey as an **emerging AI/ML Engineer**, highlighting my innovative projects, diverse skills, and easy ways to connect. Built with cutting-edge web technologies, it offers a dynamic and engaging user experience.
+![Build Status](https://github.com/pranavv1210/portfolio-website/workflows/CI/badge.svg) Welcome to the GitHub repository for **Pranav V's personal portfolio website**! This interactive platform showcases my journey as an **emerging AI/ML Engineer**, highlighting my innovative projects, diverse skills, and easy ways to connect. Built with cutting-edge web technologies, it offers a dynamic and engaging user experience.
 
 ---
 
@@ -8,22 +8,22 @@
 
 Experience the live portfolio in action:
 
-[**🔗 Visit Live Site**](https://pranavv1210.github.io/portfolio-website)
+[**🔗 Visit Live Site**](https://pranavportfolioweb.onrender.com)
 
 ---
 
 ## 📸 Sneak Peek
 
-*(Consider adding a compelling screenshot or a short GIF of your website here once it's deployed! This is crucial for visual appeal.)*
+Here's a glimpse of my portfolio:
 
-![Portfolio Screenshot](https://via.placeholder.com/1200x600?text=Your+Portfolio+Website+Screenshot+Goes+Here)
+![Portfolio Screenshot](https://raw.githubusercontent.com/pranavv1210/portfolio-website/main/assets/portfolio_website.png)
 
 ---
 
 ## 🚀 Key Features
 
 * **About Me**: Dive into my background, passions, and professional journey as a 21-year-old AI/ML enthusiast from Bengaluru, currently pursuing B.E. at CMR Institute of Technology.
-* **Skills Showcase**: Discover my technical proficiencies, from core programming languages with visual progress bars to a comprehensive display of tools, frameworks, and technologies with intuitive icons.
+* **Skills Showcase**: Discover my technical proficiencies, from core programming languages with visual progress bars to a comprehensive display of tools and frameworks with intuitive icons.
 * **Education Timeline**: A clear, chronological presentation of my academic milestones and qualifications.
 * **My Works (Projects)**: Explore impactful projects I've built, each presented with descriptive text, relevant images, and direct clickable links to their GitHub repositories for a deeper dive.
 * **GitHub Call to Action**: A prominent section designed to encourage visitors to explore even more of my work directly on my GitHub profile.
@@ -41,15 +41,16 @@ This project is meticulously crafted using a modern web development stack:
 
 * **Frontend Framework**: [React.js](https://react.dev/)
 * **Styling**: [Tailwind CSS](https://tailwindcss.com/) for a utility-first approach to rapid and responsive UI development
-* **Animations**: [Framer Motion](https://www.framer.com/motion/) for fluid and engaging UI transitions and interactive elements
+* **Animations**: [Framer Motion](https://www.framer.com/motion/) for fluid and engaging UI animations and interactive elements
 * **Icons**: [React Icons](https://react-icons.github.io/react-icons/) leveraging Font Awesome (`react-icons/fa`) and Simple Icons (`react-icons/si`) for diverse iconography
 * **Background Effects**: [OGL](https://oogl.dev/) powers the interactive and captivating Aurora background
 * **Project Setup**: Bootstrapped with [Create React App](https://create-react-app.dev/) for a robust development environment.
-* **Deployment**: Automated via [GitHub Pages](https://pages.github.com/) using `gh-pages` for seamless continuous deployment.
+* **Node.js**: The JavaScript runtime environment.
+* **npm / Yarn**: Package managers for project dependencies.
 
 ---
 
-## 🚀 Getting Started
+## ⚙️ Getting Started
 
 Follow these steps to set up and run the project locally on your machine.
 
