@@ -1,53 +1,68 @@
-Pranav V's Portfolio
-This is a personal portfolio website for Pranav V, an emerging AIML Engineer, showcasing projects, skills, and contact information. The project is built using React and bootstrapped with Create React App.
-Features
+# Pranav V's Personal Portfolio Website
 
-About Me: Learn about Pranav V, a 21-year-old AI/ML enthusiast from Bengaluru, pursuing a B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology.
-My Works: Explore projects built with technologies like Python, JavaScript, React, TensorFlow, Node.js, SQL, Git, and AWS.
-Reach Me: Connect via email, phone, Instagram, LinkedIn, and YouTube.
-Resume: Download Pranav's resume directly from the site.
-Interactive UI: Features animated effects using Framer Motion, a dynamic menu, and a dock for navigation.
+Welcome to the GitHub repository for **Pranav V's personal portfolio website**! This interactive platform showcases my journey as an **emerging AIML Engineer**, highlighting my projects, skills, and contact information. Built with modern web technologies, it's designed to provide a dynamic and engaging user experience.
 
-Available Scripts
-In the project directory, you can run:
+## 🌟 Features
+
+* **About Me**: Learn about Pranav V, a 21-year-old AI/ML enthusiast from Bengaluru, currently pursuing a B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology.
+* **Skills Showcase**: Explore a detailed overview of my technical proficiencies, including general skill levels displayed with progress bars and a consolidated list of tools and frameworks with their respective icons.
+* **Education Timeline**: A clear, chronological presentation of my academic qualifications.
+* **My Works**: Discover key projects I've built, complete with descriptive text, showcased images, and direct links to their GitHub repositories for a deeper dive.
+* **GitHub Call to Action**: A dedicated section to encourage visitors to explore more of my projects directly on GitHub.
+* **Reach Me**: Easily connect via email, phone, Instagram, LinkedIn, and YouTube.
+* **Downloadable Resume**: Access and download my professional resume directly from the site.
+* **Interactive UI**: The website features smooth animated effects using Framer Motion, a dynamic rotating text in the hero section, and an intuitive dock for seamless navigation.
+* **Subtle Background**: An animated Aurora background adds a modern and immersive visual flair.
+* **Mobile Responsive**: Optimized for a seamless experience across various devices and screen sizes.
+
+---
+
+## 🚀 Technologies Used
+
+This project is built using a modern web development stack:
+
+* **React.js**: The core library for building the user interface.
+* **Framer Motion**: Utilized for creating fluid and engaging UI animations and transitions.
+* **React Icons**: Provides a vast collection of customizable vector icons used for social media links, skills, and navigation.
+* **Tailwind CSS**: A utility-first CSS framework for rapid and responsive styling.
+* **OGL**: Used for rendering the interactive Aurora background.
+* **Create React App**: For bootstrapping the project setup and providing a robust development environment.
+* **Node.js**: The JavaScript runtime environment.
+* **npm / Yarn**: Package managers for project dependencies.
+
+---
+
+## ⚙️ Getting Started
+
+Follow these steps to set up and run the project locally.
+
+### Prerequisites
+
+* **Node.js** (LTS version recommended)
+* **npm** (comes with Node.js) or **Yarn**
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/pranavv1210/portfolio-website.git](https://github.com/pranavv1210/portfolio-website.git)
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd portfolio-website
+    ```
+3.  **Install dependencies:**
+    ```bash
+    npm install
+    # OR
+    # yarn install
+    ```
+
+### Running Locally
+
+To start the development server:
+
+```bash
 npm start
-Runs the app in development mode.Open http://localhost:3000 to view it in your browser.The page will reload when you make changes, and lint errors will appear in the console.
-npm test
-Launches the test runner in interactive watch mode.See the section on running tests for more information.
-npm run build
-Builds the app for production to the build folder.It bundles React in production mode and optimizes the build for the best performance. The build is minified, and filenames include hashes.Your app is ready to be deployed!See the section on deployment for more information.
-npm run eject
-Note: This is a one-way operation. Once you eject, you can't go back!If you're not satisfied with the build tool and configuration choices, you can eject to gain full control over dependencies (Webpack, Babel, ESLint, etc.). All commands except eject will still work, but they will point to the copied scripts for customization.
-Project Setup
-
-Clone the repository:  git clone https://github.com/<your-username>/<your-repo-name>.git
-
-
-Install dependencies:  npm install
-
-
-Run the app:  npm start
-
-
-
-Technologies Used
-
-React: For building the user interface.
-Framer Motion: For animations and transitions.
-React Icons: For social media and skill icons.
-Tailwind CSS (assumed for styling based on React guidelines): For responsive design.
-Create React App: For project setup and configuration.
-
-Learn More
-
-Create React App Documentation
-React Documentation
-Code Splitting
-Analyzing the Bundle Size
-Making a Progressive Web App
-Advanced Configuration
-Deployment
-Troubleshooting npm run build Fails to Minify
-
-Copyright
-© 2025 Pranav V. All rights reserved.
+# OR
+# yarn start
