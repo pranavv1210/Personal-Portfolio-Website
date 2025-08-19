@@ -14,7 +14,7 @@ import {
 import projects from "./projects.json";
 import ErrorBoundary from "./ErrorBoundary";
 import VariableProximity from "./VariableProximity";
-import Aurora from "./Aurora";
+// import Aurora from "./Aurora"; // COMMENTED OUT: Removed due to OGL build issues
 import TiltedCard from "./TiltedCard";
 import { ScrollVelocity } from "./ScrollVelocity";
 import Dock from "./Dock";
@@ -383,6 +383,7 @@ function App() {
       year: "2022-Present",
       degree: "B.E. in Artificial Intelligence and Machine Learning",
       institution: "CMR Institute of Technology",
+      details: "CGPA: 8.46 (expected 2026)" // Updated CGPA
     },
     {
       id: 2,
@@ -450,13 +451,15 @@ function App() {
   return (
     <ErrorBoundary>
       <div className="relative min-h-screen bg-dark-gray text-light-gray font-inter overflow-hidden">
+        {/*
+        // COMMENTED OUT: Aurora component removed due to persistent build issues on Render.com
         <Aurora
           colorStops={["#1a1a2e", "#16213e", "#0f3460"]}
           amplitude={1.5}
           blend={0.7}
         />
-
         <div className="absolute inset-0 z-0"></div>
+        */}
 
         <div className="relative z-10 pb-20">
           {/* Hero Section */}
