@@ -1,5 +1,4 @@
-import { Renderer, Program, Mesh, Color } from "ogl";
-import { Triangle } from "ogl/src/shapes/Triangle"; // CHANGED IMPORT PATH FOR Triangle
+import * as OGL from "ogl"; // Import everything as OGL
 import { useEffect, useRef } from "react";
 import './Aurora.css';
 
