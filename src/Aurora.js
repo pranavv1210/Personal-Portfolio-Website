@@ -1,4 +1,5 @@
-import { Renderer, Program, Mesh, Color, Triangle } from "ogl"; // REVERTED Triangle import
+import { Renderer, Program, Mesh, Color } from "ogl";
+import { Triangle } from "ogl/src/shapes/Triangle"; // CHANGED IMPORT PATH FOR Triangle
 import { useEffect, useRef } from "react";
 import './Aurora.css';
 
