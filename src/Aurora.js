@@ -1,4 +1,5 @@
-import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
+import { Renderer, Program, Mesh, Color } from "ogl";
+import { Triangle } from "ogl/src/core/Triangle"; // UPDATED IMPORT FOR Triangle
 import { useEffect, useRef } from "react";
 import './Aurora.css';
 
