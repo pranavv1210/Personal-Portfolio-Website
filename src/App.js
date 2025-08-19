@@ -24,6 +24,10 @@ import resumeProjectImage from './assets/resume.png'; // Make sure this is .png 
 import ageProjectImage from './assets/age.jpg';
 import portfolioWebsiteImage from './assets/portfolio_website.png'; // Make sure this is .png or .jpg based on your file
 
+// NEW: Import images for new projects
+import mentalHealthImage from './assets/mental_health_sql.jpg';
+import documentEditorImage from './assets/document_editor_ai.jpg';
+
 
 import "./App.css";
 import "./Dock.css";
@@ -372,7 +376,7 @@ function App() {
   ], []);
 
 
-  // Education data - CGPA details removed
+  // Education data - CGPA details updated
   const educationData = useMemo(() => [
     {
       id: 1,
@@ -387,18 +391,20 @@ function App() {
       institution: "St. Joseph's Pre-University College",
     },
     {
-      id: 3,
-      year: "2007-2020",
-      degree: "International Council of Secondary Education (ICSE)",
-      institution: "Cambridge School",
-    },
+    "id": 3,
+      "year": "2007-2020",
+      "degree": "International Council of Secondary Education (ICSE)",
+      "institution": "Cambridge School"
+    }
   ], []);
 
   // Map project image paths to imported modules
   const projectImageMap = useMemo(() => ({
-    './assets/resume.png': resumeProjectImage, // Make sure extension matches actual file
+    './assets/resume.jpg': resumeProjectImage, // Make sure this is .png or .jpg based on your file
     './assets/age.jpg': ageProjectImage,
-    './assets/portfolio_website.png': portfolioWebsiteImage, // Make sure extension matches actual file
+    './assets/portfolio_website.jpg': portfolioWebsiteImage, // Make sure this is .png or .jpg based on your file
+    './assets/mental_health_sql.jpg': mentalHealthImage, // NEW
+    './assets/document_editor_ai.jpg': documentEditorImage, // NEW
   }), []);
 
   // Dock items - All items back as originally, as per user's last request (reinstating My Works)
@@ -536,7 +542,7 @@ function App() {
                   variants={textVariants}
                 >
                   <VariableProximity
-                    label="I’m Pranav V, a 21-year-old AI/ML enthusiast born and raised in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology (CGPA: 8.42, expected 2026). Immersed in the city’s vibrant tech ecosystem, I thrive on coding, collaborating at hackathons, and building intelligent systems that tackle real-world challenges. Bengaluru’s innovation-driven spirit fuels my drive to explore the intersection of data, algorithms, and meaningful impact."
+                    label="I’m Pranav V, a 21-year-old AI/ML enthusiast born and raised in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology (CGPA: 8.46, expected 2026). Immersed in the city’s vibrant tech ecosystem, I thrive on coding, collaborating at hackathons, and building intelligent systems that tackle real-world challenges. Bengaluru’s innovation-driven spirit fuels my drive to explore the intersection of data, algorithms, and meaningful impact."
                     fromFontVariationSettings="'wght' 400"
                     toFontVariationSettings="'wght' 900"
                     containerRef={aboutRef}

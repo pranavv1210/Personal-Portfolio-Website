@@ -2,25 +2,25 @@
   {
     "id": 1,
     "title": "AI Resume Screening System with Chatbot Integration",
-    "description": "Developing a comprehensive web application to revolutionize recruitment by automating resume screening and enhancing candidate engagement. This system leverages advanced AI/NLP to accurately parse resumes, semantically match candidates to job descriptions, and provide explainable, bias-mitigated scores. It features a proactive, Al-driven chatbot offering real-time resume feedback to candidates before submission, alongside robust HR tools for collaborative evaluation and intelligent insights.",
+    "description": "Developing a comprehensive web application to revolutionize recruitment by automating resume screening and enhancing candidate engagement. This system leverages advanced AI/NLP to accurately parse resumes, semantically match candidates to job descriptions, and provide explainable, bias-mitigated scores. It features a proactive, AI-driven chatbot offering real-time resume feedback to candidates before submission, alongside robust HR tools for collaborative evaluation and intelligent insights.",
     "techStack": ["React.js", "Node.js (Express)", "AI/NLP", "MongoDB", "Cloudflare R2", "Auth.js", "Rasa Open Source"],
     "imageSrc": "./assets/resume.jpg",
-    "githubLink": "https://github.com/pranavv1210/AI-Resume-Screening-Repo"
+    "githubLink": "https://github.com/Anvitha-git/ai-resume-screening.git"
   },
   {
-  "id": 2,
-  "title": "Personal Portfolio Website",
-  "description": "Built a responsive personal portfolio website using React to showcase projects, skills, and experience. Implemented a clean, modern UI with reusable components and smooth navigation. Deployed the site on GitHub Pages, ensuring mobile responsiveness and fast load times for an optimized user experience.",
-  "techStack": ["React", "HTML", "CSS", "JavaScript", "GitHub Pages"],
-  "imageSrc": "./assets/portfolio_website.png",
-  "githubLink": "https://github.com/pranavv1210/portfolio-website"
-},
+    "id": 2,
+    "title": "Student Mental Health Analysis (SQL)",
+    "description": "An in-depth SQL-based project focused on analyzing student mental health data. This project demonstrates strong database management, advanced querying techniques, and the ability to extract meaningful insights from structured data for sociological and health-related applications.",
+    "techStack": ["SQL", "Database Management", "Data Analysis", "MySQL"],
+    "imageSrc": "./assets/mental_health_sql.jpg",
+    "githubLink": "https://github.com/pranavv1210/Student-Mental-Health-Analysis-SQL.git"
+  },
   {
-    "id": 3,
-    "title": "Age and Gender Detection using AI",
-    "description": "Developed a real-time Age and Gender Detection system leveraging Computer Vision (OpenCV) and pre-trained Deep Learning (Caffe-based Convolutional Neural Networks). The system dynamically processes live webcam streams and static images/videos to perform robust face detection. Subsequent to detection, cropped facial regions are fed into specialized CNN models for accurate gender classification and age estimation. This Al-powered solution showcases proficiency in Python and deep learning frameworks, enabling the extraction of immediate demographic insights critical for applications in smart surveillance, retail analytics, and interactive systems.",
-    "techStack": ["Python", "OpenCV", "Argparse", "Deep Learning (Caffe Models)"],
-    "imageSrc": "./assets/age.jpg",
-    "githubLink": "https://github.com/pranavv1210/Age-Gender-Detection-Repo"
+    "id": 4,
+    "title": "Document Editor using AI",
+    "description": "An innovative AI-powered document editor designed to enhance productivity and content creation. It leverages advanced Natural Language Processing (NLP) and Machine Learning models to offer intelligent features like grammar correction, style suggestions, content summarization, and automated text generation within a user-friendly interface.",
+    "techStack": ["AI", "NLP", "Machine Learning", "Python", "Web Development"],
+    "imageSrc": "./assets/document_editor_ai.jpg",
+    "githubLink": "https://github.com/pranavv1210/Document-Editor-using-AI.git"
   }
 ]
