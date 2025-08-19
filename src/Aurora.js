@@ -1,4 +1,4 @@
-import * as OGL from "ogl"; // Import everything as OGL
+import { Renderer, Program, Mesh, Color, Triangle } from "ogl"; // REVERTED TO ORIGINAL IMPORTS
 import { useEffect, useRef } from "react";
 import './Aurora.css';
 
@@ -123,7 +123,7 @@ export default function Aurora(props) {
     const ctn = ctnDom.current;
     if (!ctn) return;
 
-    const renderer = new Renderer({
+    const renderer = new Renderer({ // This will now correctly refer to the imported Renderer
       alpha: true,
       premultipliedAlpha: true,
       antialias: true
@@ -131,7 +131,7 @@ export default function Aurora(props) {
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); // These will correctly refer to OGL's constants
     gl.canvas.style.backgroundColor = 'transparent';
 
     let program;
@@ -147,17 +147,17 @@ export default function Aurora(props) {
     }
     window.addEventListener("resize", resize);
 
-    const geometry = new Triangle(gl);
+    const geometry = new Triangle(gl); // This will now correctly refer to the imported Triangle
     if (geometry.attributes.uv) {
       delete geometry.attributes.uv;
     }
 
     const colorStopsArray = colorStops.map((hex) => {
-      const c = new Color(hex);
+      const c = new Color(hex); // This will now correctly refer to the imported Color
       return [c.r, c.g, c.b];
     });
 
-    program = new Program(gl, {
+    program = new Program(gl, { // This will now correctly refer to the imported Program
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
@@ -169,7 +169,7 @@ export default function Aurora(props) {
       }
     });
 
-    const mesh = new Mesh(gl, { geometry, program });
+    const mesh = new Mesh(gl, { geometry, program }); // This will now correctly refer to the imported Mesh
     ctn.appendChild(gl.canvas);
 
     let animateId = 0;
@@ -181,7 +181,7 @@ export default function Aurora(props) {
       program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
       const stops = propsRef.current.colorStops ?? colorStops;
       program.uniforms.uColorStops.value = stops.map((hex) => {
-        const c = new Color(hex);
+        const c = new Color(hex); // This will now correctly refer to the imported Color
         return [c.r, c.g, c.b];
       });
       renderer.render({ scene: mesh });
