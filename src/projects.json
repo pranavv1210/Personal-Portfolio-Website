@@ -9,18 +9,18 @@
   },
   {
     "id": 2,
-    "title": "Student Mental Health Analysis (SQL)",
-    "description": "An in-depth SQL-based project focused on analyzing student mental health data. This project demonstrates strong database management, advanced querying techniques, and the ability to extract meaningful insights from structured data for sociological and health-related applications.",
-    "techStack": ["SQL", "Database Management", "Data Analysis", "MySQL"],
+    "title": "Endee Network Map",
+    "description": "A full-stack AI web application that converts uploaded documents into an interactive semantic knowledge graph. It uses vector embeddings and semantic similarity to discover relationships between concepts, stores them in Endee, and visualizes the result as an explorable network for intelligent knowledge discovery.",
+    "techStack": ["Next.js", "FastAPI", "Endee Vector DB", "React Flow", "TypeScript", "Python"],
     "imageSrc": "./assets/mental_health_sql.jpg",
-    "githubLink": "https://github.com/pranavv1210/Student-Mental-Health-Analysis-SQL.git"
+    "githubLink": "https://github.com/pranavv1210/endee-network-map.git"
   },
   {
     "id": 4,
-    "title": "Document Editor using AI",
-    "description": "An innovative AI-powered document editor designed to enhance productivity and content creation. It leverages advanced Natural Language Processing (NLP) and Machine Learning models to offer intelligent features like grammar correction, style suggestions, content summarization, and automated text generation within a user-friendly interface.",
-    "techStack": ["AI", "NLP", "Machine Learning", "Python", "Web Development"],
+    "title": "Terms and Conditions Summarizer using n8n",
+    "description": "A RAG-powered automation project that scrapes Terms and Conditions pages, cleans the extracted content, and generates concise plain-language summaries from a provided URL. It combines n8n workflows with Python-based retrieval and summarization, plus a simple Flask interface for user interaction.",
+    "techStack": ["n8n", "RAG", "Python", "Flask", "FAISS", "Transformers"],
     "imageSrc": "./assets/document_editor_ai.jpg",
-    "githubLink": "https://github.com/pranavv1210/Document-Editor-using-AI.git"
+    "githubLink": "https://github.com/pranavv1210/Terms-and-Conditions-Summarizer-using-n8n.git"
   }
 ]
