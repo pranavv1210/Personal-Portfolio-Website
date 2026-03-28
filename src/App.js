@@ -730,7 +730,6 @@ function App() {
               transition={{ duration: 0.5, delay: 0.15 }}
             >
               <div className="hero-profile-card terminal-panel">
-                <div className="terminal-meta">pranav-photo.jpg</div>
                 <TiltedCard
                   imageSrc={pranavPhoto}
                   altText="Pranav V"
