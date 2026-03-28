@@ -293,6 +293,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [expandedProjectId, setExpandedProjectId] = useState(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMobileViewport, setIsMobileViewport] = useState(() => window.innerWidth <= 900);
 
@@ -926,8 +927,17 @@ function App() {
                     </a>
                   )}
                   <div className="project-body">
+                    {project.tagLabel && (
+                      <div className="tag-row project-meta">
+                        <span className="tag">{project.tagLabel}</span>
+                      </div>
+                    )}
                     <h3>{project.title}</h3>
-                    <div className="project-description">
+                    <div
+                      className={`project-description ${
+                        project.story ? "project-description-compact" : ""
+                      }`}
+                    >
                       <VariableProximity
                         label={project.description}
                         fromFontVariationSettings="'wght' 400"
@@ -946,10 +956,88 @@ function App() {
                       ))}
                     </div>
                     <div className="project-actions">
-                      <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="text-link">
-                        View Project
-                        <FaExternalLinkAlt />
-                      </a>
+                      {project.story ? (
+                        <>
+                          <button
+                            type="button"
+                            className="text-link project-toggle"
+                            onClick={() =>
+                              setExpandedProjectId((current) =>
+                                current === project.id ? null : project.id
+                              )
+                            }
+                            aria-expanded={expandedProjectId === project.id}
+                          >
+                            {expandedProjectId === project.id ? "Hide Details" : "View Details"}
+                            <FaEye />
+                          </button>
+                          <AnimatePresence initial={false}>
+                            {expandedProjectId === project.id && (
+                              <motion.div
+                                className="project-details"
+                                initial={useLiteMotion ? false : { opacity: 0, y: 8 }}
+                                animate={useLiteMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                                exit={useLiteMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                              >
+                                <div className="project-details-copy">
+                                  <p className="project-details-tagline">Ride Together. Ride Safe.</p>
+                                  <h4>{project.title}</h4>
+                                  <p>{project.story}</p>
+                                </div>
+                                <div className="project-detail-block">
+                                  <span className="project-detail-label">Features</span>
+                                  <ul className="project-detail-list">
+                                    {project.featureList?.map((item) => (
+                                      <li key={item}>{item}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                <div className="project-detail-block">
+                                  <span className="project-detail-label">Tech Stack</span>
+                                  <div className="tag-row">
+                                    {project.techStack.map((stackItem) => (
+                                      <span key={stackItem} className="tag">
+                                        {stackItem}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                                <div className="project-cta-row">
+                                  <a
+                                    href={project.liveLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="primary-button"
+                                  >
+                                    View App
+                                    <FaExternalLinkAlt />
+                                  </a>
+                                  <a
+                                    href={project.downloadLink || project.liveLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="secondary-button"
+                                  >
+                                    Download App
+                                    <FaDownload />
+                                  </a>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      ) : (
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-link"
+                        >
+                          View Project
+                          <FaExternalLinkAlt />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </motion.article>

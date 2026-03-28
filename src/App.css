@@ -825,6 +825,73 @@ a {
   margin-top: auto;
 }
 
+.project-meta {
+  margin-bottom: -3px;
+}
+
+.project-toggle {
+  padding: 0;
+  color: var(--green);
+}
+
+.project-description-compact {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.project-details {
+  display: grid;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.project-details-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.project-details-copy h4,
+.project-details-copy p,
+.project-detail-list {
+  margin: 0;
+}
+
+.project-details-tagline,
+.project-detail-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.project-detail-block {
+  display: grid;
+  gap: 10px;
+}
+
+.project-detail-list {
+  display: grid;
+  gap: 10px;
+  padding-left: 18px;
+  color: var(--text-soft);
+}
+
+.project-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.project-cta-row .primary-button,
+.project-cta-row .secondary-button {
+  min-height: 44px;
+}
+
 .text-link {
   justify-content: flex-start;
   color: var(--green);
