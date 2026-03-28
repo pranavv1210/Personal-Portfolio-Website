@@ -13,7 +13,8 @@
     ],
     "techStack": ["Flutter", "Supabase", "Phone OTP", "Maps"],
     "liveLink": "https://journeysync-app.vercel.app",
-    "downloadLink": "https://journeysync-app.vercel.app"
+    "downloadLink": "https://journeysync-app.vercel.app",
+    "githubLink": "https://github.com/pranavv1210/JourneySync-App.git"
   },
   {
     "id": 1,

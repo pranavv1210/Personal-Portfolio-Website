@@ -1017,6 +1017,17 @@ function App() {
                                     Download App
                                     <FaDownload />
                                   </a>
+                                  {project.githubLink && (
+                                    <a
+                                      href={project.githubLink}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="secondary-button"
+                                    >
+                                      GitHub
+                                      <FaGithub />
+                                    </a>
+                                  )}
                                 </div>
                               </motion.div>
                             )}
