@@ -47,8 +47,6 @@ import projects from "./projects.json";
 import pranavPhoto from "./assets/pranav-photo.jpg";
 import githubCtaBg from "./assets/image_616736.jpg";
 import resumeProjectImage from "./assets/resume.png";
-import ageProjectImage from "./assets/age.jpg";
-import portfolioWebsiteImage from "./assets/portfolio_website.png";
 import mentalHealthImage from "./assets/mental_health_sql.jpg";
 import documentEditorImage from "./assets/document_editor_ai.jpg";
 import "./App.css";
@@ -440,8 +438,6 @@ function App() {
   const projectImageMap = useMemo(
     () => ({
       "./assets/resume.jpg": resumeProjectImage,
-      "./assets/age.jpg": ageProjectImage,
-      "./assets/portfolio_website.jpg": portfolioWebsiteImage,
       "./assets/mental_health_sql.jpg": mentalHealthImage,
       "./assets/document_editor_ai.jpg": documentEditorImage,
     }),
