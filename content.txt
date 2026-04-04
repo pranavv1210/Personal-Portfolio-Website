@@ -1,0 +1,100 @@
+PRANAV V  
+Address: No.19, Anandha Dhamma 3rd Main Road, Optimum Garden Layout, 
+                Ayyapanagar, K R Puram, Bengaluru – 560036. 
+E-mail ID: prv22aiml@cmrit.ac.in    
+                   pranavv736@gmail.com    
+Mobile Number: +91-7676858328 
+LinkedIn: https://www.linkedin.com/in/pranav-venu-550729264/   
+GitHub: https://github.com/pranavv1210  
+CAREER OBJECTIVE 
+Machine Learning enthusiast skilled in Python, SQL, and full-stack development using React. Experienced in building 
+data science pipelines and implementing machine learning algorithms. Passionate about leveraging AI to solve real    -
+world challenges, with a strong foundation in deep learning, generative models, and applied AI research.  
+EDUCATIONAL QUALIFICATION 
+•    Bachelor of Engineering – Artificial Intelligence and Machine Learning 
+CMR Institute of Technology, AECS Layout, Bengaluru  
+CGPA: 8.51, 2026 (Pursuing) 
+•    Pre-University Course - Science (PCMB)  
+St Joseph's Pre University College, Museum Road, Bengaluru  
+83.3%, 2022 
+•    10th Grade – ICSE 
+Cambridge School, K R Puram, Bengaluru  
+81.8%, 2020 
+TECHNICAL SKILLS 
+•    Programming Languages: Python, Java (Intermediate) 
+•    Frameworks: React.js 
+•    Software & Analytics: Visual Studio Code, Jupyter Notebook, PowerBI, Tableau, Android Studio, MS Excel 
+•    Operating Systems: Windows 
+•    Web Technology: HTML 
+•    Machine Learning and AI: OpenCV, NLP, TensorFlow 
+•    Databases: SQL (Intermediate) 
+•    Cloud Platforms: Microsoft Azure (Basic) 
+•    Gen-AI Tools: OpenAI, GenAI, LLM’s 
+•    Version Control: Git and GitHub 
+PROJECTS 
+AI Resume Screening System with Chatbot Integration (Ongoing)  
+•     Description:  Developing  a  comprehensive  web  application  to  revolutionize  recruitment  by  automating  resume 
+screening  and  enhancing  candidate  engagement.  This  system  leverages  advanced  AI/NLP  to  accurately  parse 
+resumes,  semantically  match  candidates  to  job  descriptions,  and  provide  explainable,  bias-mitigated  scores.  It 
+features  a  proactive,  AI-driven  chatbot  offering  real-time  resume  feedback  to  candidates  before  submission, 
+alongside robust HR tools for collaborative evaluation and intelligent insights.  
+•    Tech Stack: React.js, Node.js (Express), AI/NLP (Hugging Face, spaCy), Supabase, Auth.js, Rasa Open Source. 
+ 
+Student Mental Health Analysis SQL  
+•    Description: Developed an advanced data analysis pipeline to investigate trends and correlations between student 
+demographics and self -reported mental health scores across different years of study. This involved designing and 
+implementing a normalized relational databa se schema and constructing complex SQL queries utilizing Common 
+Table  Expressions  and  Conditional  Aggregation  to  dynamically  calculate  and  compare  metrics, such as  average 
+anxiety scores split by gender and treatment  -seeking status.  Developed a Python/Pand as ETL script to transform 
+raw survey data, connect to the analytical results in MySQL, and drive key data visualizations using Matplotlib and 
+Seaborn. 
+•    Tech Stack: Python, MySQL, Pandas, Matplotlib, Seaborn 
+----------------Page (0) Break----------------
+ 
+Terms & Conditions Summarizer using n8n  
+•    Description:  Developed  a  project  that  addresses  the  common  problem  of  users  skipping  lengthy  Terms  & 
+Conditions  by providing clear, plain-language  summaries  of legal documents.  The  system takes a  website URL, 
+extracts and cleans the T&C content, and generates a concise  overview highlighting the most important points. It 
+helps users  quickly understand their rights,  obligations,  and key clauses without reading pages  of complex legal 
+text. The workflow is modular and scalable, making it adaptable for other long-form documents like privacy policies 
+or research papers. This project demonstrates the practical application of AI and automation to improve accessibility, 
+transparency, and user experience in real-world contexts. 
+•    Tech Stack: Python, n8n, Flask, Hugging Face Transformers, FAISS, BeautifulSoup 
+INTERNSHIPS (Ongoing) 
+•    Company Name: Cheerans Global Solutions Pvt Ltd. 
+•    Duration: 4 Months (January 2026 – May 2026) 
+•    Designation: Data Scientist Intern 
+•    Responsibilities:  
+o   Designed and implemented the Frontend for a Billing Software for a café. 
+o   Executed tasks in data analysis, data cleaning, and created interactive dashboards 
+CO-CURRICULAR AND EXTRA-CURRICULAR ACTIVITIES 
+Hackathons/Competitions 
+•    Participated in “Full Stack Fiesta: Innovate, Build, Deploy” hackathon organized by CMR Institute of Technology. 
+•    Participated  in “VYUHATECH  2.0 –  National  Level  Hackathon” ,  organized  by  CMR  Institute  of  Technology, 
+developing  ReviveMotion— an  AI/Computer  Vision  web  platform  for  real  -time,  marker  less  cancer  rehab 
+monitoring. 
+Seminars and Workshops 
+•    Attended a workshop on “Patent Drafting” organized  by  the  Department  of  Artificial  Intelligence  and  Machine 
+Learning in association with CMRIT Institution’s Innovation Council. 
+•    Attended a seminar on “Generative AI” organized by CMR Institute of Technology. 
+•    Attended a seminar on “Startup and Innovation” organized by CMR Institute of Technology. 
+Patents 
+•    AI  Powered  Pet  Monitoring  System  -  Developed  a  smart  system  using  AI  and  computer  vision  to  monitor  pet 
+behaviour,  detect  health  anomalies,  and  send  real-time  alerts  to  owners.  Filed  for  patent  protection  to  secure 
+innovation in intelligent pet care technology.  
+NSS 
+•    Actively participated in orphanage visits, engaging with children through interactive activities, distributing books, 
+stationery, and meals, and organizing sessions that encouraged learning and emotional support. 
+Technical Clubs  
+•    Member of Cybernauts, club of the Department of Artificial Intelligence and Machine Learning. 
+AWARDS AND ACHIEVEMENTS 
+•    Received  a Certificate  of Appreciation  for designing posters for the “Open Day” event  held  on  17th  May  2025 
+organized by CMR Institute of Technology. 
+•    Served as the Class Representative in the 1ˢᵗ and 2ⁿᵈ semesters. 
+PERSONAL DETAILS 
+Date of Birth                               : 12/10/2004 
+Gender                                        : Male 
+Nationality                                  : Indian 
+Linguistic Competencies            : English, Kannada, Hindi, Telugu, German 
+Hobbies                                       : Travelling, Photography, Dancing, Cooking, Vlogging 
+----------------Page (1) Break----------------
