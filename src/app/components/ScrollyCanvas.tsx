@@ -57,7 +57,7 @@ export default function ScrollyCanvas() {
     // Zoom by 8% to crop out the "Veo" watermark on the bottom right corner
     const ZOOM_FACTOR = 1.08
 
-    let renderableWidth, renderableHeight, xStart, yStart
+    let renderableWidth, renderableHeight
     if (imgAspectRatio < canvasAspectRatio) {
       renderableWidth = canvas.width * ZOOM_FACTOR
       renderableHeight = (canvas.width / imgAspectRatio) * ZOOM_FACTOR
@@ -66,8 +66,8 @@ export default function ScrollyCanvas() {
       renderableWidth = (canvas.height * imgAspectRatio) * ZOOM_FACTOR
     }
 
-    xStart = (canvas.width - renderableWidth) / 2
-    yStart = (canvas.height - renderableHeight) / 2
+    const xStart = (canvas.width - renderableWidth) / 2
+    const yStart = (canvas.height - renderableHeight) / 2
 
     context.clearRect(0, 0, canvas.width, canvas.height)
     context.drawImage(img, xStart, yStart, renderableWidth, renderableHeight)

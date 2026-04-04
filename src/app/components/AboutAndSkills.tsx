@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FiCode, FiDatabase, FiCloud, FiActivity, FiTerminal } from 'react-icons/fi'
+import { FiCode, FiDatabase, FiCloud, FiActivity } from 'react-icons/fi'
 
 const skills = [
   {
@@ -44,7 +44,7 @@ export default function AboutAndSkills() {
           </h2>
           <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
             <p>
-              I'm a 21-year-old Machine Learning enthusiast based in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology.
+              I&apos;m a 21-year-old Machine Learning enthusiast based in Bengaluru, currently pursuing my B.E. in Artificial Intelligence and Machine Learning at CMR Institute of Technology.
             </p>
             <p>
               Skilled in Python, SQL, and full-stack development using React. I have practical experience in building data science pipelines and implementing machine learning algorithms.

@@ -28,7 +28,7 @@ export default function Experience() {
               <div className="absolute w-3 h-3 bg-purple-500 rounded-full -left-[6.5px] top-2 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
               <p className="text-sm text-purple-400 font-medium mb-1">2022</p>
               <h3 className="text-xl font-bold text-white">Pre-University Course - Science (PCMB)</h3>
-              <p className="text-gray-400 mt-2 leading-relaxed">St Joseph's Pre University College, Bengaluru.<br/>Score: 83.3%</p>
+              <p className="text-gray-400 mt-2 leading-relaxed">St Joseph&apos;s Pre University College, Bengaluru.<br/>Score: 83.3%</p>
             </div>
             <div className="relative pl-6 border-l border-white/10">
               <div className="absolute w-3 h-3 bg-purple-500 rounded-full -left-[6.5px] top-2 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />

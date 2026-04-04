@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FiExternalLink, FiGithub } from 'react-icons/fi'
+import { FiGithub } from 'react-icons/fi'
 
 import ArchitectureDiagram from './ArchitectureDiagram'
 
